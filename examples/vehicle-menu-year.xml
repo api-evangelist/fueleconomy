@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- GET /ws/rest/vehicle/menu/year -->
+<!-- Available model years (1984-2027, sample shown) -->
+<menuItems>
+  <menuItem>
+    <text>2027</text>
+    <value>2027</value>
+  </menuItem>
+  <menuItem>
+    <text>2026</text>
+    <value>2026</value>
+  </menuItem>
+  <menuItem>
+    <text>2025</text>
+    <value>2025</value>
+  </menuItem>
+  <menuItem>
+    <text>2024</text>
+    <value>2024</value>
+  </menuItem>
+  <menuItem>
+    <text>2000</text>
+    <value>2000</value>
+  </menuItem>
+  <menuItem>
+    <text>1990</text>
+    <value>1990</value>
+  </menuItem>
+  <menuItem>
+    <text>1984</text>
+    <value>1984</value>
+  </menuItem>
+</menuItems>

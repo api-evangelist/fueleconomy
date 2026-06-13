@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- GET /ws/rest/ympg/shared/ympgVehicle/26425 -->
+<!-- Community MPG summary for vehicle 26425 -->
+<ympgVehicle>
+  <vehicleId>26425</vehicleId>
+  <avgMpg>48.627030971</avgMpg>
+  <maxMpg>74</maxMpg>
+  <minMpg>30</minMpg>
+  <recordCount>202</recordCount>
+  <cityPercent>45</cityPercent>
+  <highwayPercent>55</highwayPercent>
+</ympgVehicle>

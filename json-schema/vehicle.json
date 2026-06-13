@@ -1,0 +1,289 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/fueleconomy/main/json-schema/vehicle.json",
+  "title": "Vehicle",
+  "description": "EPA fuel economy and specification record for a single vehicle configuration (year/make/model/trim).",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "Unique vehicle identifier assigned by FuelEconomy.gov"
+    },
+    "year": {
+      "type": "integer",
+      "minimum": 1984,
+      "description": "Model year"
+    },
+    "make": {
+      "type": "string",
+      "description": "Vehicle manufacturer name"
+    },
+    "model": {
+      "type": "string",
+      "description": "Vehicle model and trim designation"
+    },
+    "baseModel": {
+      "type": "string",
+      "description": "Base model name without trim suffix"
+    },
+    "atvType": {
+      "type": "string",
+      "description": "Alternative fuel vehicle type code (FFV, EV, Hybrid, PHEV, FCV)"
+    },
+    "city08": {
+      "type": "integer",
+      "description": "City MPG for primary fuel (rounded EPA rating)"
+    },
+    "city08U": {
+      "type": "number",
+      "description": "Unrounded city MPG for primary fuel"
+    },
+    "cityA08": {
+      "type": "integer",
+      "description": "City MPG for alternative fuel (e.g., E85)"
+    },
+    "cityA08U": {
+      "type": "number",
+      "description": "Unrounded city MPG for alternative fuel"
+    },
+    "highway08": {
+      "type": "integer",
+      "description": "Highway MPG for primary fuel (rounded EPA rating)"
+    },
+    "highway08U": {
+      "type": "number",
+      "description": "Unrounded highway MPG for primary fuel"
+    },
+    "highwayA08": {
+      "type": "integer",
+      "description": "Highway MPG for alternative fuel"
+    },
+    "highwayA08U": {
+      "type": "number",
+      "description": "Unrounded highway MPG for alternative fuel"
+    },
+    "comb08": {
+      "type": "integer",
+      "description": "Combined MPG for primary fuel (55% highway / 45% city)"
+    },
+    "comb08U": {
+      "type": "number",
+      "description": "Unrounded combined MPG for primary fuel"
+    },
+    "combA08": {
+      "type": "integer",
+      "description": "Combined MPG for alternative fuel"
+    },
+    "combA08U": {
+      "type": "number",
+      "description": "Unrounded combined MPG for alternative fuel"
+    },
+    "fuelType": {
+      "type": "string",
+      "description": "Fuel type description"
+    },
+    "fuelType1": {
+      "type": "string",
+      "description": "Primary fuel type"
+    },
+    "fuelType2": {
+      "type": "string",
+      "description": "Secondary/alternative fuel type"
+    },
+    "cylinders": {
+      "type": "integer",
+      "description": "Number of engine cylinders"
+    },
+    "displ": {
+      "type": "number",
+      "description": "Engine displacement in liters"
+    },
+    "trany": {
+      "type": "string",
+      "description": "Transmission description"
+    },
+    "drive": {
+      "type": "string",
+      "enum": [
+        "Front-Wheel Drive",
+        "Rear-Wheel Drive",
+        "All-Wheel Drive",
+        "4-Wheel Drive",
+        "2-Wheel Drive, Front",
+        "4-Wheel or All-Wheel Drive",
+        "Part-time 4-Wheel Drive"
+      ],
+      "description": "Drive axle type"
+    },
+    "VClass": {
+      "type": "string",
+      "description": "EPA vehicle size class"
+    },
+    "co2TailpipeGpm": {
+      "type": "number",
+      "description": "CO2 tailpipe emissions in grams per mile for primary fuel"
+    },
+    "co2TailpipeAGpm": {
+      "type": "number",
+      "description": "CO2 tailpipe emissions in grams per mile for alternative fuel"
+    },
+    "fuelCost08": {
+      "type": "integer",
+      "description": "Estimated annual fuel cost in USD for primary fuel"
+    },
+    "fuelCostA08": {
+      "type": "integer",
+      "description": "Estimated annual fuel cost in USD for alternative fuel"
+    },
+    "barrels08": {
+      "type": "number",
+      "description": "Barrels of oil used per year for primary fuel"
+    },
+    "barrelsA08": {
+      "type": "number",
+      "description": "Barrels of oil used per year for alternative fuel"
+    },
+    "ghgScore": {
+      "type": "integer",
+      "minimum": -1,
+      "maximum": 10,
+      "description": "EPA greenhouse gas score (1-10; -1 if not rated)"
+    },
+    "ghgScoreA": {
+      "type": "integer",
+      "minimum": -1,
+      "maximum": 10,
+      "description": "EPA greenhouse gas score for alternative fuel"
+    },
+    "feScore": {
+      "type": "integer",
+      "minimum": -1,
+      "maximum": 10,
+      "description": "EPA fuel economy score (1-10; -1 if not rated)"
+    },
+    "co2": {
+      "type": "integer",
+      "description": "CO2 emissions (g/mile) from official test; -1 if not available"
+    },
+    "co2A": {
+      "type": "integer",
+      "description": "CO2 emissions for alternative fuel; -1 if not available"
+    },
+    "youSaveSpend": {
+      "type": "integer",
+      "description": "5-year fuel cost savings (positive) or additional spend (negative) vs average new vehicle"
+    },
+    "guzzler": {
+      "type": "string",
+      "description": "Gas guzzler tax designation"
+    },
+    "mfrCode": {
+      "type": "string",
+      "description": "Manufacturer code"
+    },
+    "engId": {
+      "type": "integer",
+      "description": "Engine identifier"
+    },
+    "eng_dscr": {
+      "type": "string",
+      "description": "Engine descriptor"
+    },
+    "trans_dscr": {
+      "type": "string",
+      "description": "Transmission descriptor codes"
+    },
+    "sCharger": {
+      "type": "string",
+      "description": "Supercharger indicator"
+    },
+    "tCharger": {
+      "type": "string",
+      "description": "Turbocharger indicator"
+    },
+    "startStop": {
+      "type": "string",
+      "description": "Start-stop technology indicator"
+    },
+    "cylDeact": {
+      "type": "string",
+      "description": "Cylinder deactivation indicator code"
+    },
+    "cylDeactYesNo": {
+      "type": "string",
+      "enum": ["Yes", "No"],
+      "description": "Cylinder deactivation (Yes/No)"
+    },
+    "mpgData": {
+      "type": "string",
+      "description": "MPG data source indicator (Y = EPA tested, N = estimated)"
+    },
+    "mpgRevised": {
+      "type": "boolean",
+      "description": "Whether MPG data has been revised"
+    },
+    "phevBlended": {
+      "type": "boolean",
+      "description": "Whether PHEV operates in blended mode"
+    },
+    "phevCity": {
+      "type": "integer",
+      "description": "PHEV city MPGe"
+    },
+    "phevHwy": {
+      "type": "integer",
+      "description": "PHEV highway MPGe"
+    },
+    "phevComb": {
+      "type": "integer",
+      "description": "PHEV combined MPGe"
+    },
+    "range": {
+      "type": "integer",
+      "description": "Electric range in miles"
+    },
+    "rangeA": {
+      "type": "integer",
+      "description": "Range on alternative fuel"
+    },
+    "charge120": {
+      "type": "number",
+      "description": "Hours to charge on 120V outlet"
+    },
+    "charge240": {
+      "type": "number",
+      "description": "Hours to charge on 240V outlet"
+    },
+    "battery": {
+      "type": "number",
+      "description": "Battery capacity in kWh (-1 if not applicable)"
+    },
+    "evMotor": {
+      "type": "string",
+      "description": "Electric motor description"
+    },
+    "combE": {
+      "type": "number",
+      "description": "Combined electricity consumption (kWh/100mi)"
+    },
+    "cityE": {
+      "type": "number",
+      "description": "City electricity consumption (kWh/100mi)"
+    },
+    "highwayE": {
+      "type": "number",
+      "description": "Highway electricity consumption (kWh/100mi)"
+    },
+    "createdOn": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Record creation timestamp"
+    },
+    "modifiedOn": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Record last modified timestamp"
+    }
+  },
+  "required": ["id", "year", "make", "model"]
+}

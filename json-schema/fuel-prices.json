@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/fueleconomy/main/json-schema/fuel-prices.json",
+  "title": "FuelPrices",
+  "description": "Current US average fuel prices used by the FuelEconomy.gov annual cost calculator.",
+  "type": "object",
+  "properties": {
+    "cng": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Compressed natural gas price in USD per gasoline gallon equivalent (GGE)"
+    },
+    "diesel": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Diesel fuel price in USD per gallon"
+    },
+    "e85": {
+      "type": "number",
+      "minimum": 0,
+      "description": "E85 ethanol blend price in USD per gallon"
+    },
+    "electric": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Electricity price in USD per kWh"
+    },
+    "lpg": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Liquefied petroleum gas price in USD per gallon"
+    },
+    "midgrade": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Mid-grade gasoline price in USD per gallon"
+    },
+    "premium": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Premium gasoline price in USD per gallon"
+    },
+    "regular": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Regular gasoline price in USD per gallon"
+    }
+  },
+  "required": ["regular", "midgrade", "premium", "diesel", "e85", "cng", "lpg", "electric"]
+}

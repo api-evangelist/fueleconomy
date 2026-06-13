@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/fueleconomy/main/json-schema/ympg-vehicle.json",
+  "title": "YmpgVehicle",
+  "description": "Aggregated summary of community-contributed real-world MPG data for a single vehicle.",
+  "type": "object",
+  "properties": {
+    "vehicleId": {
+      "type": "integer",
+      "description": "Unique vehicle identifier"
+    },
+    "avgMpg": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Average MPG across all community submissions"
+    },
+    "maxMpg": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Highest MPG recorded in community submissions"
+    },
+    "minMpg": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Lowest MPG recorded in community submissions"
+    },
+    "recordCount": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Total number of community MPG submissions for this vehicle"
+    },
+    "cityPercent": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "Aggregate percentage of city driving across all submissions"
+    },
+    "highwayPercent": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "Aggregate percentage of highway driving across all submissions"
+    }
+  },
+  "required": ["vehicleId", "avgMpg", "recordCount"]
+}

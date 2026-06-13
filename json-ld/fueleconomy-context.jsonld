@@ -1,0 +1,328 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "qudt": "http://qudt.org/schema/qudt/",
+    "unit": "http://qudt.org/vocab/unit/",
+    "fueleconomy": "https://www.fueleconomy.gov/feg/ws/vocab#",
+
+    "Vehicle": "schema:Car",
+    "FuelPrices": "fueleconomy:FuelPrices",
+    "MenuItem": "fueleconomy:MenuItem",
+    "MenuItems": "fueleconomy:MenuItems",
+    "EmissionsInfo": "fueleconomy:EmissionsInfo",
+    "YmpgVehicle": "fueleconomy:YmpgVehicle",
+    "YmpgDriverVehicle": "fueleconomy:YmpgDriverVehicle",
+
+    "id": {
+      "@id": "schema:identifier",
+      "@type": "xsd:integer"
+    },
+    "year": {
+      "@id": "schema:modelDate",
+      "@type": "xsd:integer"
+    },
+    "make": {
+      "@id": "schema:brand",
+      "@type": "xsd:string"
+    },
+    "model": {
+      "@id": "schema:model",
+      "@type": "xsd:string"
+    },
+    "baseModel": {
+      "@id": "fueleconomy:baseModel",
+      "@type": "xsd:string"
+    },
+    "VClass": {
+      "@id": "schema:vehicleConfiguration",
+      "@type": "xsd:string"
+    },
+    "atvType": {
+      "@id": "fueleconomy:atvType",
+      "@type": "xsd:string"
+    },
+    "fuelType": {
+      "@id": "schema:fuelType",
+      "@type": "xsd:string"
+    },
+    "fuelType1": {
+      "@id": "fueleconomy:fuelType1",
+      "@type": "xsd:string"
+    },
+    "fuelType2": {
+      "@id": "fueleconomy:fuelType2",
+      "@type": "xsd:string"
+    },
+    "displ": {
+      "@id": "schema:engineDisplacement",
+      "@type": "xsd:decimal"
+    },
+    "cylinders": {
+      "@id": "schema:engineType",
+      "@type": "xsd:integer"
+    },
+    "trany": {
+      "@id": "schema:vehicleTransmission",
+      "@type": "xsd:string"
+    },
+    "drive": {
+      "@id": "schema:driveWheelConfiguration",
+      "@type": "xsd:string"
+    },
+
+    "city08": {
+      "@id": "fueleconomy:cityMpg",
+      "@type": "xsd:integer"
+    },
+    "highway08": {
+      "@id": "fueleconomy:highwayMpg",
+      "@type": "xsd:integer"
+    },
+    "comb08": {
+      "@id": "fueleconomy:combinedMpg",
+      "@type": "xsd:integer"
+    },
+    "city08U": {
+      "@id": "fueleconomy:cityMpgUnrounded",
+      "@type": "xsd:decimal"
+    },
+    "highway08U": {
+      "@id": "fueleconomy:highwayMpgUnrounded",
+      "@type": "xsd:decimal"
+    },
+    "comb08U": {
+      "@id": "fueleconomy:combinedMpgUnrounded",
+      "@type": "xsd:decimal"
+    },
+    "cityA08": {
+      "@id": "fueleconomy:cityMpgAlt",
+      "@type": "xsd:integer"
+    },
+    "highwayA08": {
+      "@id": "fueleconomy:highwayMpgAlt",
+      "@type": "xsd:integer"
+    },
+    "combA08": {
+      "@id": "fueleconomy:combinedMpgAlt",
+      "@type": "xsd:integer"
+    },
+
+    "co2TailpipeGpm": {
+      "@id": "fueleconomy:co2TailpipeGramsPerMile",
+      "@type": "xsd:decimal"
+    },
+    "co2TailpipeAGpm": {
+      "@id": "fueleconomy:co2TailpipeGramsPerMileAlt",
+      "@type": "xsd:decimal"
+    },
+    "ghgScore": {
+      "@id": "fueleconomy:greenhouseGasScore",
+      "@type": "xsd:integer"
+    },
+    "ghgScoreA": {
+      "@id": "fueleconomy:greenhouseGasScoreAlt",
+      "@type": "xsd:integer"
+    },
+    "feScore": {
+      "@id": "fueleconomy:fuelEconomyScore",
+      "@type": "xsd:integer"
+    },
+
+    "fuelCost08": {
+      "@id": "fueleconomy:annualFuelCost",
+      "@type": "xsd:integer"
+    },
+    "fuelCostA08": {
+      "@id": "fueleconomy:annualFuelCostAlt",
+      "@type": "xsd:integer"
+    },
+    "barrels08": {
+      "@id": "fueleconomy:annualPetroleumBarrels",
+      "@type": "xsd:decimal"
+    },
+    "barrelsA08": {
+      "@id": "fueleconomy:annualPetroleumBarrelsAlt",
+      "@type": "xsd:decimal"
+    },
+    "youSaveSpend": {
+      "@id": "fueleconomy:fiveYearSavingsVsAverage",
+      "@type": "xsd:integer"
+    },
+
+    "range": {
+      "@id": "schema:vehicleSeatingCapacity",
+      "@type": "xsd:integer"
+    },
+    "battery": {
+      "@id": "fueleconomy:batteryKwh",
+      "@type": "xsd:decimal"
+    },
+    "charge120": {
+      "@id": "fueleconomy:chargeTimeLevel1Hours",
+      "@type": "xsd:decimal"
+    },
+    "charge240": {
+      "@id": "fueleconomy:chargeTimeLevel2Hours",
+      "@type": "xsd:decimal"
+    },
+    "combE": {
+      "@id": "fueleconomy:combinedKwhPer100Miles",
+      "@type": "xsd:decimal"
+    },
+
+    "guzzler": {
+      "@id": "fueleconomy:gasGuzzlerTax",
+      "@type": "xsd:string"
+    },
+    "mpgRevised": {
+      "@id": "fueleconomy:mpgRevised",
+      "@type": "xsd:boolean"
+    },
+    "startStop": {
+      "@id": "fueleconomy:startStopTechnology",
+      "@type": "xsd:string"
+    },
+    "cylDeactYesNo": {
+      "@id": "fueleconomy:cylinderDeactivation",
+      "@type": "xsd:string"
+    },
+    "mfrCode": {
+      "@id": "fueleconomy:manufacturerCode",
+      "@type": "xsd:string"
+    },
+    "engId": {
+      "@id": "fueleconomy:engineId",
+      "@type": "xsd:integer"
+    },
+    "eng_dscr": {
+      "@id": "fueleconomy:engineDescriptor",
+      "@type": "xsd:string"
+    },
+    "tranyDescriptor": {
+      "@id": "fueleconomy:transmissionDescriptor",
+      "@type": "xsd:string"
+    },
+    "createdOn": {
+      "@id": "schema:dateCreated",
+      "@type": "xsd:dateTime"
+    },
+    "modifiedOn": {
+      "@id": "schema:dateModified",
+      "@type": "xsd:dateTime"
+    },
+
+    "efid": {
+      "@id": "fueleconomy:emissionsFamilyId",
+      "@type": "xsd:string"
+    },
+    "salesArea": {
+      "@id": "fueleconomy:emissionsSalesArea",
+      "@type": "xsd:integer"
+    },
+    "score": {
+      "@id": "fueleconomy:airPollutionScore",
+      "@type": "xsd:decimal"
+    },
+    "scoreAlt": {
+      "@id": "fueleconomy:airPollutionScoreAlt",
+      "@type": "xsd:decimal"
+    },
+    "smartwayScore": {
+      "@id": "fueleconomy:smartwayScore",
+      "@type": "xsd:integer"
+    },
+    "standard": {
+      "@id": "fueleconomy:emissionsStandardCode",
+      "@type": "xsd:string"
+    },
+    "stdText": {
+      "@id": "fueleconomy:emissionsStandardText",
+      "@type": "xsd:string"
+    },
+
+    "regular": {
+      "@id": "fueleconomy:regularGasolinePriceUSD",
+      "@type": "xsd:decimal"
+    },
+    "midgrade": {
+      "@id": "fueleconomy:midgradeGasolinePriceUSD",
+      "@type": "xsd:decimal"
+    },
+    "premium": {
+      "@id": "fueleconomy:premiumGasolinePriceUSD",
+      "@type": "xsd:decimal"
+    },
+    "diesel": {
+      "@id": "fueleconomy:dieselPriceUSD",
+      "@type": "xsd:decimal"
+    },
+    "e85": {
+      "@id": "fueleconomy:e85PriceUSD",
+      "@type": "xsd:decimal"
+    },
+    "electric": {
+      "@id": "fueleconomy:electricityPriceUSD",
+      "@type": "xsd:decimal"
+    },
+    "cng": {
+      "@id": "fueleconomy:cngPriceUSD",
+      "@type": "xsd:decimal"
+    },
+    "lpg": {
+      "@id": "fueleconomy:lpgPriceUSD",
+      "@type": "xsd:decimal"
+    },
+
+    "avgMpg": {
+      "@id": "fueleconomy:communityAverageMpg",
+      "@type": "xsd:decimal"
+    },
+    "maxMpg": {
+      "@id": "fueleconomy:communityMaxMpg",
+      "@type": "xsd:decimal"
+    },
+    "minMpg": {
+      "@id": "fueleconomy:communityMinMpg",
+      "@type": "xsd:decimal"
+    },
+    "recordCount": {
+      "@id": "fueleconomy:communityRecordCount",
+      "@type": "xsd:integer"
+    },
+    "cityPercent": {
+      "@id": "fueleconomy:cityDrivingPercent",
+      "@type": "xsd:decimal"
+    },
+    "highwayPercent": {
+      "@id": "fueleconomy:highwayDrivingPercent",
+      "@type": "xsd:decimal"
+    },
+    "vehicleId": {
+      "@id": "fueleconomy:vehicleId",
+      "@type": "xsd:integer"
+    },
+    "lastDate": {
+      "@id": "schema:dateModified",
+      "@type": "xsd:dateTime"
+    },
+    "state": {
+      "@id": "schema:addressRegion",
+      "@type": "xsd:string"
+    },
+    "mpg": {
+      "@id": "fueleconomy:reportedMpg",
+      "@type": "xsd:decimal"
+    },
+
+    "text": {
+      "@id": "schema:name",
+      "@type": "xsd:string"
+    },
+    "value": {
+      "@id": "schema:value",
+      "@type": "xsd:string"
+    }
+  }
+}

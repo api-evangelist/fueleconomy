@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/fueleconomy/main/json-schema/menu-items.json",
+  "title": "MenuItems",
+  "description": "Collection of navigation menu items for vehicle lookup by year, make, model, or option.",
+  "type": "object",
+  "properties": {
+    "menuItem": {
+      "description": "One or more selectable menu options",
+      "oneOf": [
+        {
+          "$ref": "#/$defs/MenuItem"
+        },
+        {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/MenuItem"
+          }
+        }
+      ]
+    }
+  },
+  "$defs": {
+    "MenuItem": {
+      "type": "object",
+      "description": "A single selectable option in a navigation menu",
+      "properties": {
+        "text": {
+          "type": "string",
+          "description": "Human-readable display label"
+        },
+        "value": {
+          "type": "string",
+          "description": "Machine-readable value to use as query parameter or vehicle ID"
+        }
+      },
+      "required": ["text", "value"]
+    }
+  }
+}

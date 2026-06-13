@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- GET /ws/rest/fuelprices -->
+<!-- Current US average fuel prices as of 2026-06-13 -->
+<fuelPrices>
+  <cng>2.96</cng>
+  <diesel>5.21</diesel>
+  <e85>2.63</e85>
+  <electric>0.15</electric>
+  <lpg>3.42</lpg>
+  <midgrade>4.76</midgrade>
+  <premium>5.14</premium>
+  <regular>4.15</regular>
+</fuelPrices>

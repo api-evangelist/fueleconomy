@@ -1,0 +1,454 @@
+aid: fueleconomy:vocabulary
+name: FuelEconomy.gov API Vocabulary
+description: >-
+  Domain vocabulary for the FuelEconomy.gov REST API covering EPA fuel economy
+  ratings, vehicle specifications, emissions data, fuel pricing, and
+  community-contributed real-world MPG records. Terms sourced from the
+  FuelEconomy.gov API response fields and EPA measurement methodology.
+url: https://www.fueleconomy.gov/feg/ws/index.shtml
+created: "2026-06-13"
+modified: "2026-06-13"
+tags:
+  - Fuel Economy
+  - EPA
+  - Vehicles
+  - Emissions
+  - MPG
+
+terms:
+
+  # --- Fuel Economy Ratings ---
+
+  - term: city08
+    label: City MPG (Primary Fuel)
+    type: integer
+    description: >-
+      EPA-rated city fuel economy in miles per gallon for the primary fuel,
+      rounded to the nearest whole number. Measured under EPA city drive cycle
+      conditions representing stop-and-go urban traffic.
+    unit: mpg
+
+  - term: highway08
+    label: Highway MPG (Primary Fuel)
+    type: integer
+    description: >-
+      EPA-rated highway fuel economy in miles per gallon for the primary fuel,
+      rounded to the nearest whole number. Measured under EPA highway drive
+      cycle conditions at sustained higher speeds.
+    unit: mpg
+
+  - term: comb08
+    label: Combined MPG (Primary Fuel)
+    type: integer
+    description: >-
+      EPA-rated combined fuel economy in miles per gallon for the primary fuel.
+      Calculated as 55% highway and 45% city driving weighted average, rounded
+      to the nearest whole number.
+    unit: mpg
+
+  - term: cityA08
+    label: City MPG (Alternative Fuel)
+    type: integer
+    description: >-
+      EPA-rated city MPG for the alternative fuel (e.g., E85 for FFVs,
+      electricity for PHEVs). Zero if no alternative fuel applies.
+    unit: mpg
+
+  - term: highwayA08
+    label: Highway MPG (Alternative Fuel)
+    type: integer
+    description: >-
+      EPA-rated highway MPG for the alternative fuel. Zero if no alternative
+      fuel applies.
+    unit: mpg
+
+  - term: combA08
+    label: Combined MPG (Alternative Fuel)
+    type: integer
+    description: >-
+      EPA-rated combined MPG for the alternative fuel. Zero if no alternative
+      fuel applies.
+    unit: mpg
+
+  - term: city08U
+    label: Unrounded City MPG (Primary Fuel)
+    type: number
+    description: >-
+      Unrounded city MPG value for the primary fuel, retained for precision
+      in programmatic calculations before rounding.
+    unit: mpg
+
+  - term: highway08U
+    label: Unrounded Highway MPG (Primary Fuel)
+    type: number
+    description: Unrounded highway MPG for the primary fuel.
+    unit: mpg
+
+  - term: comb08U
+    label: Unrounded Combined MPG (Primary Fuel)
+    type: number
+    description: Unrounded combined MPG for the primary fuel.
+    unit: mpg
+
+  # --- Emissions ---
+
+  - term: co2TailpipeGpm
+    label: CO2 Tailpipe Emissions (Primary Fuel)
+    type: number
+    description: >-
+      Estimated CO2 tailpipe emissions in grams per mile for the primary fuel,
+      derived from EPA fuel economy measurements. Higher values indicate more
+      carbon-intensive operation.
+    unit: g/mile
+
+  - term: co2TailpipeAGpm
+    label: CO2 Tailpipe Emissions (Alternative Fuel)
+    type: number
+    description: >-
+      Estimated CO2 tailpipe emissions in grams per mile for the alternative
+      fuel. For E85, reflects ethanol blend combustion characteristics.
+    unit: g/mile
+
+  - term: ghgScore
+    label: EPA Greenhouse Gas Score
+    type: integer
+    description: >-
+      EPA greenhouse gas score on a 1-10 scale where 10 is best. Reflects
+      tailpipe CO2 and other greenhouse gas emissions relative to all
+      vehicles of the same model year. Value -1 indicates not rated.
+    range: "-1 to 10"
+
+  - term: feScore
+    label: EPA Fuel Economy Score
+    type: integer
+    description: >-
+      EPA fuel economy score on a 1-10 scale where 10 is best. Compares
+      fuel efficiency to all other vehicles of the same model year.
+      Value -1 indicates not rated.
+    range: "-1 to 10"
+
+  - term: efid
+    label: Emissions Family Identifier
+    type: string
+    description: >-
+      EPA emissions family ID code assigned during vehicle certification.
+      Uniquely identifies a group of engine/vehicle configurations sharing
+      the same emissions certification.
+
+  - term: standard
+    label: Emissions Standard Code
+    type: string
+    description: >-
+      EPA tailpipe emissions standard code the vehicle is certified to
+      (e.g., B5 = Bin 5, B8 = Bin 8, LEV2-ULEV = Low Emission Vehicle 2).
+
+  - term: salesArea
+    label: Emissions Sales Area
+    type: integer
+    description: >-
+      Sales territory code indicating which geographic market the emissions
+      certification applies to. Common values: 3 = 49-state (non-California),
+      7 = California and states following California standards.
+
+  # --- Cost & Economics ---
+
+  - term: fuelCost08
+    label: Annual Fuel Cost (Primary Fuel)
+    type: integer
+    description: >-
+      Estimated annual fuel cost in US dollars based on EPA fuel economy
+      ratings and current US average fuel prices, assuming 15,000 miles
+      per year (55% highway / 45% city).
+    unit: USD/year
+
+  - term: fuelCostA08
+    label: Annual Fuel Cost (Alternative Fuel)
+    type: integer
+    description: >-
+      Estimated annual fuel cost in USD for the alternative fuel under
+      the same assumptions as fuelCost08.
+    unit: USD/year
+
+  - term: youSaveSpend
+    label: 5-Year Savings vs. Average Vehicle
+    type: integer
+    description: >-
+      Estimated 5-year fuel cost difference compared to the average new
+      vehicle. Positive values indicate savings; negative values indicate
+      additional spending relative to the average.
+    unit: USD
+
+  - term: barrels08
+    label: Barrels of Oil Per Year (Primary Fuel)
+    type: number
+    description: >-
+      Estimated annual petroleum consumption in barrels, assuming 15,000
+      miles per year at EPA combined rating for the primary fuel.
+    unit: barrels/year
+
+  # --- Vehicle Specifications ---
+
+  - term: atvType
+    label: Alternative Fuel Vehicle Type
+    type: string
+    description: >-
+      Classification code for the alternative fuel or powertrain technology.
+      Common values: FFV (flex-fuel vehicle capable of E85), EV (battery
+      electric), Hybrid, PHEV (plug-in hybrid), FCV (fuel cell vehicle),
+      CNG, LPG. Empty string for conventional gasoline/diesel vehicles.
+    values:
+      - FFV
+      - EV
+      - Hybrid
+      - PHEV
+      - FCV
+      - CNG
+      - LPG
+
+  - term: fuelType
+    label: Fuel Type Description
+    type: string
+    description: >-
+      Human-readable fuel type for the vehicle. For dual-fuel vehicles,
+      lists both fuels (e.g., "Gasoline or E85").
+
+  - term: fuelType1
+    label: Primary Fuel Type
+    type: string
+    description: Primary fuel used by the vehicle.
+    values:
+      - Regular Gasoline
+      - Midgrade Gasoline
+      - Premium Gasoline
+      - Diesel
+      - Electricity
+      - Natural Gas
+      - Hydrogen
+
+  - term: fuelType2
+    label: Alternative Fuel Type
+    type: string
+    description: Secondary or alternative fuel type for dual-fuel vehicles (e.g., E85).
+
+  - term: displ
+    label: Engine Displacement
+    type: number
+    description: Engine displacement in liters.
+    unit: liters
+
+  - term: cylinders
+    label: Engine Cylinders
+    type: integer
+    description: Number of engine cylinders.
+
+  - term: trany
+    label: Transmission
+    type: string
+    description: >-
+      Transmission type and speed description (e.g., "Automatic 4-spd",
+      "Manual 6-spd", "CVT").
+
+  - term: drive
+    label: Drive Axle Type
+    type: string
+    description: Drive configuration of the vehicle.
+    values:
+      - Front-Wheel Drive
+      - Rear-Wheel Drive
+      - All-Wheel Drive
+      - 4-Wheel Drive
+      - 4-Wheel or All-Wheel Drive
+      - Part-time 4-Wheel Drive
+
+  - term: VClass
+    label: EPA Vehicle Class
+    type: string
+    description: >-
+      EPA size and type classification assigned based on interior volume
+      or body type (e.g., "Compact Cars", "Midsize Cars", "SUVs",
+      "Pickup Trucks", "Vans, Cargo Type").
+
+  - term: mfrCode
+    label: Manufacturer Code
+    type: string
+    description: Three-letter EPA manufacturer code.
+
+  - term: eng_dscr
+    label: Engine Descriptor
+    type: string
+    description: >-
+      Additional engine descriptor codes such as GUZZLER, TURBO, FFV, or
+      technology identifiers.
+
+  - term: guzzler
+    label: Gas Guzzler
+    type: string
+    description: >-
+      Gas guzzler tax designation. Non-empty values indicate the vehicle
+      is subject to the federal gas guzzler tax due to low fuel economy.
+
+  - term: startStop
+    label: Start-Stop Technology
+    type: string
+    description: Indicator for engine start-stop idle reduction technology.
+
+  - term: cylDeactYesNo
+    label: Cylinder Deactivation
+    type: string
+    description: >-
+      Whether the vehicle uses cylinder deactivation technology to improve
+      fuel economy at light loads. Values: Yes or No.
+    values:
+      - "Yes"
+      - "No"
+
+  - term: mpgRevised
+    label: MPG Revised
+    type: boolean
+    description: >-
+      Indicates whether the EPA fuel economy values have been revised after
+      original testing, typically under the 2008 updated label methodology.
+
+  # --- Electric / PHEV ---
+
+  - term: phevBlended
+    label: PHEV Blended Mode
+    type: boolean
+    description: >-
+      For plug-in hybrid vehicles, indicates whether the vehicle operates
+      in blended mode (engine and motor both active) during charge-depleting
+      operation, as opposed to all-electric mode.
+
+  - term: range
+    label: Electric Range
+    type: integer
+    description: >-
+      All-electric range in miles for EVs and PHEVs under EPA testing.
+      Zero for non-electric vehicles.
+    unit: miles
+
+  - term: charge120
+    label: Charge Time (120V)
+    type: number
+    description: >-
+      Hours to fully charge the battery from empty on a standard 120V
+      household outlet. Zero for non-plug-in vehicles.
+    unit: hours
+
+  - term: charge240
+    label: Charge Time (240V)
+    type: number
+    description: >-
+      Hours to fully charge the battery from empty on a 240V Level 2
+      charger. Zero for non-plug-in vehicles.
+    unit: hours
+
+  - term: battery
+    label: Battery Capacity
+    type: number
+    description: >-
+      Battery capacity in kilowatt-hours. Value -1 for non-electric vehicles.
+    unit: kWh
+
+  - term: combE
+    label: Combined Electricity Consumption
+    type: number
+    description: >-
+      Combined electricity consumption in kWh per 100 miles for EVs
+      operating in all-electric mode.
+    unit: kWh/100mi
+
+  # --- Fuel Prices ---
+
+  - term: regular
+    label: Regular Gasoline Price
+    type: number
+    description: Current US average price of regular unleaded gasoline per gallon.
+    unit: USD/gallon
+
+  - term: midgrade
+    label: Mid-grade Gasoline Price
+    type: number
+    description: Current US average price of mid-grade gasoline per gallon.
+    unit: USD/gallon
+
+  - term: premium
+    label: Premium Gasoline Price
+    type: number
+    description: Current US average price of premium gasoline per gallon.
+    unit: USD/gallon
+
+  - term: diesel
+    label: Diesel Price
+    type: number
+    description: Current US average price of diesel fuel per gallon.
+    unit: USD/gallon
+
+  - term: e85
+    label: E85 Price
+    type: number
+    description: Current US average price of E85 ethanol blend per gallon.
+    unit: USD/gallon
+
+  - term: electric
+    label: Electricity Price
+    type: number
+    description: Current US average residential electricity price per kWh.
+    unit: USD/kWh
+
+  - term: cng
+    label: CNG Price
+    type: number
+    description: >-
+      Current US average price of compressed natural gas per
+      gasoline gallon equivalent (GGE).
+    unit: USD/GGE
+
+  - term: lpg
+    label: LPG Price
+    type: number
+    description: Current US average price of liquefied petroleum gas per gallon.
+    unit: USD/gallon
+
+  # --- Community MPG (Your MPG) ---
+
+  - term: avgMpg
+    label: Average Real-World MPG
+    type: number
+    description: >-
+      Average fuel economy in MPG reported by community members for a
+      specific vehicle, aggregated across all submissions.
+    unit: mpg
+
+  - term: maxMpg
+    label: Maximum Real-World MPG
+    type: number
+    description: Highest MPG value reported by any community member for this vehicle.
+    unit: mpg
+
+  - term: minMpg
+    label: Minimum Real-World MPG
+    type: number
+    description: Lowest MPG value reported by any community member for this vehicle.
+    unit: mpg
+
+  - term: recordCount
+    label: MPG Submission Count
+    type: integer
+    description: Total number of community MPG submissions for this vehicle.
+
+  - term: cityPercent
+    label: City Driving Percentage
+    type: number
+    description: >-
+      Percentage of driving categorized as city (stop-and-go) conditions
+      in MPG submissions, 0-100.
+    unit: percent
+
+  - term: highwayPercent
+    label: Highway Driving Percentage
+    type: number
+    description: >-
+      Percentage of driving categorized as highway (sustained speed)
+      conditions in MPG submissions, 0-100.
+    unit: percent
