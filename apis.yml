@@ -1,0 +1,72 @@
+aid: fueleconomy
+name: FuelEconomy.gov
+description: >-
+  US Department of Energy REST API providing official EPA fuel economy ratings,
+  vehicle specifications, CO2 emissions data, and energy cost comparisons for
+  all model years from 1984 to present. Administered by Oak Ridge National
+  Laboratory for the DOE and EPA, the API offers free, unauthenticated access
+  to vehicle lookup menus, per-vehicle MPG records, emissions data, current fuel
+  prices, and community-contributed real-world fuel economy data.
+type: Index
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+url: https://raw.githubusercontent.com/api-evangelist/fueleconomy/refs/heads/main/apis.yml
+created: "2026-06-13"
+modified: "2026-06-13"
+specificationVersion: "0.19"
+tags:
+  - Fuel Economy
+  - EPA
+  - DOE
+  - Energy
+  - Vehicles
+  - Emissions
+  - CO2
+  - MPG
+  - Automotive
+  - Government
+  - Open Data
+apis:
+  - aid: fueleconomy:fuel-economy-web-services
+    name: Fuel Economy Web Services
+    description: >-
+      RESTful web services providing official EPA fuel economy ratings, vehicle
+      specifications, CO2 emissions records, current fuel prices, and
+      community-contributed real-world MPG data for passenger cars and light
+      trucks from 1984 through the current model year.
+    humanURL: https://www.fueleconomy.gov/feg/ws/index.shtml
+    baseURL: https://www.fueleconomy.gov/ws/rest
+    tags:
+      - Fuel Economy
+      - Vehicles
+      - EPA
+      - MPG
+      - Emissions
+      - Fuel Prices
+    properties:
+      - type: Documentation
+        url: https://www.fueleconomy.gov/feg/ws/index.shtml
+      - type: OpenAPI
+        url: https://www.fueleconomy.gov/feg/ws/index.shtml
+    contact:
+      - FN: FuelEconomy.gov Feedback
+        email: fueleconomy@ornl.gov
+common:
+  - type: Website
+    url: https://www.fueleconomy.gov/
+  - type: Documentation
+    url: https://www.fueleconomy.gov/feg/ws/index.shtml
+  - type: DataDownload
+    url: https://www.fueleconomy.gov/feg/download.shtml
+  - type: Widgets
+    url: https://www.fueleconomy.gov/widgets/
+  - type: Newsletter
+    url: mailto:FuelEconomyNews-join@elist.ornl.gov
+  - type: Plans
+    url: plans/fueleconomy-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/fueleconomy-rate-limits.yml
+  - type: FinOps
+    url: finops/fueleconomy-finops.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

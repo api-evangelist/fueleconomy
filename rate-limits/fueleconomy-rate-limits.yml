@@ -1,0 +1,24 @@
+name: FuelEconomy.gov API Rate Limits
+description: >-
+  FuelEconomy.gov does not publish explicit rate limit policies. As a U.S.
+  federal government public data service administered by Oak Ridge National
+  Laboratory, the API is freely accessible without authentication. No documented
+  throttling or quota restrictions exist. Consumers are encouraged to cache
+  responses locally and use bulk data downloads for large-scale data needs.
+specificationVersion: "0.1"
+rateLimits:
+  - name: Default Public Rate Limit
+    description: >-
+      No officially documented rate limit. The API is a public service with no
+      authentication requirements. Responsible use and local caching are
+      recommended for high-volume consumers.
+    requests: null
+    period: null
+    scope: global
+    authenticated: false
+    notes: >-
+      No rate limit is published. For bulk data access, DOE/EPA recommend using
+      the CSV and XML download files available at
+      https://www.fueleconomy.gov/feg/download.shtml rather than making
+      repeated individual API calls. Data is updated regularly (e.g., the
+      all-model-years dataset is refreshed weekly).

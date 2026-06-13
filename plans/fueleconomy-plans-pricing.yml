@@ -1,0 +1,29 @@
+name: FuelEconomy.gov API Plans and Pricing
+description: >-
+  FuelEconomy.gov web services are provided free of charge by the U.S.
+  Department of Energy and the U.S. Environmental Protection Agency, administered
+  by Oak Ridge National Laboratory. No registration, API key, or payment is
+  required to access the API. There is one plan: free, unlimited public access.
+specificationVersion: "0.1"
+plans:
+  - name: Free Public Access
+    description: >-
+      Unrestricted, unauthenticated access to all FuelEconomy.gov web service
+      endpoints. No registration or API key required. Provided as a public
+      service of the U.S. federal government.
+    url: https://www.fueleconomy.gov/feg/ws/index.shtml
+    price: 0.00
+    currency: USD
+    billingCycle: none
+    authentication:
+      required: false
+      type: none
+    features:
+      - Access to all vehicle menu endpoints (year, make, model, options)
+      - Vehicle record retrieval by ID
+      - Emissions records by vehicle ID
+      - Current fuel price data
+      - Community MPG summary and individual records
+      - Bulk data downloads in CSV, XML, and Excel formats
+      - Data coverage from 1984 through current model year
+      - Alternative fuel vehicle data (EV, hybrid, CNG, etc.)

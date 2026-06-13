@@ -1,0 +1,53 @@
+name: FuelEconomy.gov API FinOps Framework
+description: >-
+  FinOps cost management profile for FuelEconomy.gov API usage. The API is a
+  free U.S. federal government public data service with no direct costs to
+  consumers. FinOps considerations center on internal infrastructure costs
+  for teams integrating the API (compute, storage, egress) rather than
+  API usage fees.
+specificationVersion: "1.0"
+provider: FuelEconomy.gov (DOE / EPA / Oak Ridge National Laboratory)
+costModel: free
+currency: USD
+domains:
+  - name: Understanding Cloud Usage and Cost
+    description: >-
+      No direct API usage costs. Organizations should track indirect costs
+      such as compute resources used to call the API, storage for cached
+      responses or bulk data files, and engineering time for integration.
+    recommendations:
+      - Cache API responses to minimize redundant calls and reduce compute costs
+      - Use bulk CSV/XML downloads for large data ingestion rather than
+        repeated per-vehicle REST calls
+      - Track internal engineering and infrastructure costs associated with
+        integration and maintenance
+  - name: Cost Optimization
+    description: >-
+      Optimize by leveraging bulk data downloads for batch processing
+      workloads instead of high-frequency individual API calls.
+    recommendations:
+      - Download the all-model-years CSV (updated weekly) for analytics
+        workloads that do not require real-time data
+      - Implement response caching with appropriate TTLs (fuel prices may
+        change; vehicle records are stable)
+      - Use the vehicle menu endpoint hierarchy to avoid unnecessary
+        full-record lookups
+  - name: Planning and Forecasting
+    description: >-
+      No subscription or per-call fees to forecast. Budget planning should
+      account for downstream infrastructure costs only.
+    recommendations:
+      - Forecast storage costs if persisting bulk downloads (CSV files
+        covering 1974-present model years)
+      - Plan for periodic re-ingestion of updated data files as EPA
+        revises fuel economy estimates
+  - name: Organizational Alignment
+    description: >-
+      Align usage with open government data policies. The API is provided
+      under U.S. federal open data principles with no licensing restrictions
+      for commercial or non-commercial use.
+    recommendations:
+      - Attribute data to FuelEconomy.gov / U.S. DOE / U.S. EPA per
+        government data usage guidelines
+      - Subscribe to the FuelEconomy.gov data services mailing list
+        (FuelEconomyNews-join@elist.ornl.gov) to receive update notifications
