@@ -8,7 +8,7 @@ description: >-
   to vehicle lookup menus, per-vehicle MPG records, emissions data, current fuel
   prices, and community-contributed real-world fuel economy data.
 type: Index
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 url: https://raw.githubusercontent.com/api-evangelist/fueleconomy/refs/heads/main/apis.yml
 created: "2026-06-13"
 modified: "2026-06-13"
