@@ -51,6 +51,8 @@ apis:
       - FN: FuelEconomy.gov Feedback
         email: fueleconomy@ornl.gov
 common:
+  - type: DomainSecurity
+    url: security/fueleconomy-domain-security.yml
   - type: Website
     url: https://www.fueleconomy.gov/
   - type: Documentation
