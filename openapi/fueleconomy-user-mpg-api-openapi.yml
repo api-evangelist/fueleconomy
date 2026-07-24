@@ -1,0 +1,133 @@
+openapi: 3.0.3
+info:
+  title: Fuel Economy Web Services Emissions User MPG API
+  description: RESTful web services providing official EPA fuel economy ratings, vehicle specifications, CO2 emissions records, current fuel prices, and community-contributed real-world MPG data for passenger cars and light trucks from 1984 through the current model year. Administered by Oak Ridge National Laboratory for the US Department of Energy and the EPA. All endpoints are free and require no authentication. Responses are returned in XML format.
+  version: '1.0'
+  contact:
+    name: FuelEconomy.gov Feedback
+    email: fueleconomy@ornl.gov
+  x-api-id: fueleconomy:fuel-economy-web-services
+  license:
+    name: Public Domain (US Government Work)
+    url: https://www.usa.gov/government-works
+servers:
+- url: https://www.fueleconomy.gov/ws/rest
+  description: FuelEconomy.gov REST API
+tags:
+- name: User MPG
+  description: Community-contributed real-world MPG data
+paths:
+  /ympg/shared/ympgVehicle/{id}:
+    get:
+      operationId: getUserMpgSummary
+      summary: Get user MPG summary for a vehicle
+      description: Returns an aggregate summary of community-contributed real-world MPG records for the specified vehicle. Includes average, minimum, and maximum MPG values, the total number of records, and the percentage breakdown between city and highway driving across all submissions.
+      tags:
+      - User MPG
+      parameters:
+      - $ref: '#/components/parameters/vehicleId'
+      responses:
+        '200':
+          description: Aggregated user MPG summary for vehicle
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/YmpgVehicleSummary'
+              example: "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n<ympgVehicle>\n  <vehicleId>26425</vehicleId>\n  <avgMpg>48.627030971</avgMpg>\n  <maxMpg>74</maxMpg>\n  <minMpg>30</minMpg>\n  <recordCount>202</recordCount>\n  <cityPercent>45</cityPercent>\n  <highwayPercent>55</highwayPercent>\n</ympgVehicle>\n"
+  /ympg/shared/ympgDriverVehicle/{id}:
+    get:
+      operationId: getUserMpgRecords
+      summary: Get individual user MPG records for a vehicle
+      description: Returns the list of individual community-contributed real-world MPG records for the specified vehicle. Each record includes the reported MPG, the city/highway driving mix, the US state, and the date of the last update.
+      tags:
+      - User MPG
+      parameters:
+      - $ref: '#/components/parameters/vehicleId'
+      responses:
+        '200':
+          description: List of individual user MPG records
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/YmpgDriverVehicleList'
+              example: "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n<ympgDriverVehicleList>\n  <ympgDriverVehicle>\n    <vehicleId>26425</vehicleId>\n    <mpg>48.6</mpg>\n    <cityPercent>45</cityPercent>\n    <highwayPercent>55</highwayPercent>\n    <state>CA</state>\n    <lastDate>2024-03-15T00:00:00-04:00</lastDate>\n  </ympgDriverVehicle>\n</ympgDriverVehicleList>\n"
+components:
+  parameters:
+    vehicleId:
+      name: id
+      in: path
+      required: true
+      description: Unique numeric vehicle identifier assigned by the EPA/FuelEconomy.gov. Obtain IDs via the /vehicle/menu/options endpoint.
+      schema:
+        type: integer
+        example: 31873
+  schemas:
+    YmpgVehicleSummary:
+      type: object
+      description: Aggregated summary of community-contributed real-world MPG data for a vehicle
+      properties:
+        vehicleId:
+          type: integer
+          description: Vehicle identifier
+        avgMpg:
+          type: number
+          format: double
+          description: Average MPG across all community submissions
+        maxMpg:
+          type: number
+          format: double
+          description: Highest MPG recorded in community submissions
+        minMpg:
+          type: number
+          format: double
+          description: Lowest MPG recorded in community submissions
+        recordCount:
+          type: integer
+          description: Total number of community MPG submissions
+        cityPercent:
+          type: number
+          format: double
+          description: Aggregate percentage of city driving across submissions
+        highwayPercent:
+          type: number
+          format: double
+          description: Aggregate percentage of highway driving across submissions
+    YmpgDriverVehicle:
+      type: object
+      description: Individual community-contributed real-world MPG record
+      properties:
+        vehicleId:
+          type: integer
+          description: Vehicle identifier
+        mpg:
+          type: number
+          format: double
+          description: Reported real-world MPG for this record
+        cityPercent:
+          type: number
+          format: double
+          description: Percentage of city driving for this record
+        highwayPercent:
+          type: number
+          format: double
+          description: Percentage of highway driving for this record
+        state:
+          type: string
+          description: Two-letter US state abbreviation where driving occurred
+        lastDate:
+          type: string
+          format: date-time
+          description: Timestamp of the last update to this record
+    YmpgDriverVehicleList:
+      type: object
+      description: List of individual community MPG records for a vehicle
+      properties:
+        ympgDriverVehicle:
+          oneOf:
+          - $ref: '#/components/schemas/YmpgDriverVehicle'
+          - type: array
+            items:
+              $ref: '#/components/schemas/YmpgDriverVehicle'
+externalDocs:
+  description: Official API Documentation
+  url: https://www.fueleconomy.gov/feg/ws/index.shtml

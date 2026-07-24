@@ -1,0 +1,333 @@
+openapi: 3.0.3
+info:
+  title: Fuel Economy Web Services Emissions Vehicles API
+  description: RESTful web services providing official EPA fuel economy ratings, vehicle specifications, CO2 emissions records, current fuel prices, and community-contributed real-world MPG data for passenger cars and light trucks from 1984 through the current model year. Administered by Oak Ridge National Laboratory for the US Department of Energy and the EPA. All endpoints are free and require no authentication. Responses are returned in XML format.
+  version: '1.0'
+  contact:
+    name: FuelEconomy.gov Feedback
+    email: fueleconomy@ornl.gov
+  x-api-id: fueleconomy:fuel-economy-web-services
+  license:
+    name: Public Domain (US Government Work)
+    url: https://www.usa.gov/government-works
+servers:
+- url: https://www.fueleconomy.gov/ws/rest
+  description: FuelEconomy.gov REST API
+tags:
+- name: Vehicles
+  description: Retrieve EPA fuel economy and specifications for specific vehicles
+paths:
+  /vehicle/{id}:
+    get:
+      operationId: getVehicle
+      summary: Get vehicle by ID
+      description: Returns full EPA fuel economy record for a specific vehicle including city, highway, and combined MPG ratings, CO2 tailpipe emissions, annual fuel cost estimates, engine specifications, transmission, drive type, vehicle class, and SmartWay scores.
+      tags:
+      - Vehicles
+      parameters:
+      - $ref: '#/components/parameters/vehicleId'
+      responses:
+        '200':
+          description: Vehicle record
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Vehicle'
+              example: "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n<vehicle>\n  <id>31873</id>\n  <year>2012</year>\n  <make>Ford</make>\n  <model>E150 Van FFV</model>\n  <city08>13</city08>\n  <highway08>17</highway08>\n  <comb08>15</comb08>\n  <fuelType>Gasoline or E85</fuelType>\n  <fuelType1>Regular Gasoline</fuelType1>\n  <fuelType2>E85</fuelType2>\n  <cylinders>8</cylinders>\n  <displ>4.6</displ>\n  <trany>Automatic 4-spd</trany>\n  <drive>Rear-Wheel Drive</drive>\n  <VClass>Vans, Cargo Type</VClass>\n  <co2TailpipeGpm>592.4666666666667</co2TailpipeGpm>\n  <fuelCost08>4150</fuelCost08>\n  <ghgScore>-1</ghgScore>\n  <feScore>-1</feScore>\n</vehicle>\n"
+        '404':
+          description: Vehicle not found
+components:
+  schemas:
+    EmissionsInfo:
+      type: object
+      description: EPA tailpipe emissions certification record for a specific sales territory
+      properties:
+        efid:
+          type: string
+          description: Emissions family identifier (EPA certification code)
+        id:
+          type: integer
+          description: Vehicle ID
+        salesArea:
+          type: integer
+          description: Sales territory code (e.g., 3 = 49-state, 7 = California)
+        score:
+          type: number
+          format: double
+          description: Air pollution score (1-10 scale; -1 if not rated)
+        scoreAlt:
+          type: number
+          format: double
+          description: Air pollution score for alternative fuel; -1 if not rated
+        smartwayScore:
+          type: integer
+          description: SmartWay score (-1 if not rated)
+        standard:
+          type: string
+          description: Emissions standard code (e.g., B5, B8, LEV2-ULEV)
+        stdText:
+          type: string
+          description: Human-readable emissions standard (e.g., "Bin 5", "LEV2-ULEV")
+    Vehicle:
+      type: object
+      description: Full EPA fuel economy and specification record for a single vehicle configuration (year/make/model/trim/option).
+      properties:
+        id:
+          type: integer
+          description: Unique vehicle identifier
+        year:
+          type: integer
+          description: Model year
+        make:
+          type: string
+          description: Vehicle manufacturer
+        model:
+          type: string
+          description: Vehicle model and trim designation
+        baseModel:
+          type: string
+          description: Base model name without trim suffix
+        atvType:
+          type: string
+          description: Alternative fuel vehicle type code (e.g., FFV for flex-fuel, EV, Hybrid, PHEV, FCV)
+        city08:
+          type: integer
+          description: City MPG for primary fuel (EPA rating)
+        city08U:
+          type: number
+          format: double
+          description: Unrounded city MPG for primary fuel
+        cityA08:
+          type: integer
+          description: City MPG for alternative fuel (e.g., E85)
+        cityA08U:
+          type: number
+          format: double
+          description: Unrounded city MPG for alternative fuel
+        highway08:
+          type: integer
+          description: Highway MPG for primary fuel (EPA rating)
+        highway08U:
+          type: number
+          format: double
+          description: Unrounded highway MPG for primary fuel
+        highwayA08:
+          type: integer
+          description: Highway MPG for alternative fuel
+        highwayA08U:
+          type: number
+          format: double
+          description: Unrounded highway MPG for alternative fuel
+        comb08:
+          type: integer
+          description: Combined MPG for primary fuel (EPA rating, 55% hwy / 45% city)
+        comb08U:
+          type: number
+          format: double
+          description: Unrounded combined MPG for primary fuel
+        combA08:
+          type: integer
+          description: Combined MPG for alternative fuel
+        combA08U:
+          type: number
+          format: double
+          description: Unrounded combined MPG for alternative fuel
+        fuelType:
+          type: string
+          description: Fuel type description (e.g., "Regular Gasoline", "Gasoline or E85")
+        fuelType1:
+          type: string
+          description: Primary fuel type
+        fuelType2:
+          type: string
+          description: Secondary/alternative fuel type
+        cylinders:
+          type: integer
+          description: Number of engine cylinders
+        displ:
+          type: number
+          format: double
+          description: Engine displacement in liters
+        trany:
+          type: string
+          description: Transmission description (e.g., "Automatic 4-spd", "CVT")
+        drive:
+          type: string
+          description: Drive axle type (e.g., "Front-Wheel Drive", "All-Wheel Drive")
+        VClass:
+          type: string
+          description: EPA vehicle size class
+        co2TailpipeGpm:
+          type: number
+          format: double
+          description: CO2 tailpipe emissions in grams per mile for primary fuel
+        co2TailpipeAGpm:
+          type: number
+          format: double
+          description: CO2 tailpipe emissions in grams per mile for alternative fuel
+        fuelCost08:
+          type: integer
+          description: Estimated annual fuel cost in USD for primary fuel
+        fuelCostA08:
+          type: integer
+          description: Estimated annual fuel cost in USD for alternative fuel
+        barrels08:
+          type: number
+          format: double
+          description: Barrels of oil used per year for primary fuel
+        barrelsA08:
+          type: number
+          format: double
+          description: Barrels of oil used per year for alternative fuel
+        ghgScore:
+          type: integer
+          description: EPA greenhouse gas score (1-10 scale; -1 if not rated)
+        ghgScoreA:
+          type: integer
+          description: EPA greenhouse gas score for alternative fuel
+        feScore:
+          type: integer
+          description: EPA fuel economy score (1-10 scale; -1 if not rated)
+        co2:
+          type: integer
+          description: CO2 emissions (g/mile) from official test; -1 if not available
+        co2A:
+          type: integer
+          description: CO2 emissions for alternative fuel; -1 if not available
+        smartwayScore:
+          type: integer
+          description: SmartWay environmental score (-1 if not rated)
+        guzzler:
+          type: string
+          description: Gas guzzler tax designation if applicable
+        mfrCode:
+          type: string
+          description: Manufacturer code
+        engId:
+          type: integer
+          description: Engine identifier
+        eng_dscr:
+          type: string
+          description: Engine descriptor (e.g., GUZZLER, TURBO, FFV)
+        trans_dscr:
+          type: string
+          description: Transmission descriptor codes
+        sCharger:
+          type: string
+          description: Supercharger indicator
+        tCharger:
+          type: string
+          description: Turbocharger indicator
+        startStop:
+          type: string
+          description: Start-stop technology indicator
+        cylDeact:
+          type: string
+          description: Cylinder deactivation indicator code
+        cylDeactYesNo:
+          type: string
+          description: Cylinder deactivation human-readable (Yes/No)
+        mpgData:
+          type: string
+          description: Source of MPG data indicator (Y = EPA tested, N = estimated)
+        mpgRevised:
+          type: boolean
+          description: Whether MPG data has been revised
+        phevBlended:
+          type: boolean
+          description: Whether PHEV operates in blended mode
+        phevCity:
+          type: integer
+          description: PHEV city MPGe
+        phevHwy:
+          type: integer
+          description: PHEV highway MPGe
+        phevComb:
+          type: integer
+          description: PHEV combined MPGe
+        range:
+          type: integer
+          description: Electric range in miles (for EVs/PHEVs)
+        rangeA:
+          type: integer
+          description: Range on alternative fuel
+        charge120:
+          type: number
+          format: double
+          description: Hours to charge on 120V outlet
+        charge240:
+          type: number
+          format: double
+          description: Hours to charge on 240V outlet
+        battery:
+          type: number
+          format: double
+          description: Battery capacity in kWh (-1 if not applicable)
+        evMotor:
+          type: string
+          description: Electric motor description
+        combE:
+          type: number
+          format: double
+          description: Combined electricity consumption (kWh/100mi)
+        cityE:
+          type: number
+          format: double
+          description: City electricity consumption (kWh/100mi)
+        highwayE:
+          type: number
+          format: double
+          description: Highway electricity consumption (kWh/100mi)
+        youSaveSpend:
+          type: integer
+          description: Estimated 5-year fuel cost savings (positive) or additional spend (negative) versus average new vehicle
+        hlv:
+          type: integer
+          description: Hatchback luggage volume (cu ft)
+        hpv:
+          type: integer
+          description: Hatchback passenger volume (cu ft)
+        lv2:
+          type: integer
+          description: 2-door luggage volume (cu ft)
+        lv4:
+          type: integer
+          description: 4-door luggage volume (cu ft)
+        pv2:
+          type: integer
+          description: 2-door passenger volume (cu ft)
+        pv4:
+          type: integer
+          description: 4-door passenger volume (cu ft)
+        emissionsList:
+          $ref: '#/components/schemas/EmissionsResponse'
+        createdOn:
+          type: string
+          format: date-time
+          description: Date/time the record was created
+        modifiedOn:
+          type: string
+          format: date-time
+          description: Date/time the record was last modified
+    EmissionsResponse:
+      type: object
+      description: Container for one or more emissions certification records
+      properties:
+        emissionsInfo:
+          oneOf:
+          - $ref: '#/components/schemas/EmissionsInfo'
+          - type: array
+            items:
+              $ref: '#/components/schemas/EmissionsInfo'
+  parameters:
+    vehicleId:
+      name: id
+      in: path
+      required: true
+      description: Unique numeric vehicle identifier assigned by the EPA/FuelEconomy.gov. Obtain IDs via the /vehicle/menu/options endpoint.
+      schema:
+        type: integer
+        example: 31873
+externalDocs:
+  description: Official API Documentation
+  url: https://www.fueleconomy.gov/feg/ws/index.shtml

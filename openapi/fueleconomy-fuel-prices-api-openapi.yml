@@ -1,0 +1,75 @@
+openapi: 3.0.3
+info:
+  title: Fuel Economy Web Services Emissions Fuel Prices API
+  description: RESTful web services providing official EPA fuel economy ratings, vehicle specifications, CO2 emissions records, current fuel prices, and community-contributed real-world MPG data for passenger cars and light trucks from 1984 through the current model year. Administered by Oak Ridge National Laboratory for the US Department of Energy and the EPA. All endpoints are free and require no authentication. Responses are returned in XML format.
+  version: '1.0'
+  contact:
+    name: FuelEconomy.gov Feedback
+    email: fueleconomy@ornl.gov
+  x-api-id: fueleconomy:fuel-economy-web-services
+  license:
+    name: Public Domain (US Government Work)
+    url: https://www.usa.gov/government-works
+servers:
+- url: https://www.fueleconomy.gov/ws/rest
+  description: FuelEconomy.gov REST API
+tags:
+- name: Fuel Prices
+  description: Current US fuel prices used by the FuelEconomy.gov platform
+paths:
+  /fuelprices:
+    get:
+      operationId: getFuelPrices
+      summary: Get current fuel prices
+      description: Returns the current US average fuel prices (in dollars per gallon or per kWh for electricity) used by the FuelEconomy.gov cost calculator. Includes regular, midgrade, and premium gasoline; diesel; E85 ethanol blend; compressed natural gas (CNG); liquefied petroleum gas (LPG); and electricity.
+      tags:
+      - Fuel Prices
+      responses:
+        '200':
+          description: Current fuel prices
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/FuelPrices'
+              example: "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n<fuelPrices>\n  <cng>2.96</cng>\n  <diesel>5.21</diesel>\n  <e85>2.63</e85>\n  <electric>0.15</electric>\n  <lpg>3.42</lpg>\n  <midgrade>4.76</midgrade>\n  <premium>5.14</premium>\n  <regular>4.15</regular>\n</fuelPrices>\n"
+components:
+  schemas:
+    FuelPrices:
+      type: object
+      description: Current US average fuel prices used by FuelEconomy.gov cost calculator
+      properties:
+        cng:
+          type: number
+          format: double
+          description: Compressed natural gas price (USD per GGE)
+        diesel:
+          type: number
+          format: double
+          description: Diesel fuel price (USD per gallon)
+        e85:
+          type: number
+          format: double
+          description: E85 ethanol blend price (USD per gallon)
+        electric:
+          type: number
+          format: double
+          description: Electricity price (USD per kWh)
+        lpg:
+          type: number
+          format: double
+          description: Liquefied petroleum gas price (USD per gallon)
+        midgrade:
+          type: number
+          format: double
+          description: Mid-grade gasoline price (USD per gallon)
+        premium:
+          type: number
+          format: double
+          description: Premium gasoline price (USD per gallon)
+        regular:
+          type: number
+          format: double
+          description: Regular gasoline price (USD per gallon)
+externalDocs:
+  description: Official API Documentation
+  url: https://www.fueleconomy.gov/feg/ws/index.shtml

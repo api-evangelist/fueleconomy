@@ -1,0 +1,92 @@
+openapi: 3.0.3
+info:
+  title: Fuel Economy Web Services Emissions API
+  description: RESTful web services providing official EPA fuel economy ratings, vehicle specifications, CO2 emissions records, current fuel prices, and community-contributed real-world MPG data for passenger cars and light trucks from 1984 through the current model year. Administered by Oak Ridge National Laboratory for the US Department of Energy and the EPA. All endpoints are free and require no authentication. Responses are returned in XML format.
+  version: '1.0'
+  contact:
+    name: FuelEconomy.gov Feedback
+    email: fueleconomy@ornl.gov
+  x-api-id: fueleconomy:fuel-economy-web-services
+  license:
+    name: Public Domain (US Government Work)
+    url: https://www.usa.gov/government-works
+servers:
+- url: https://www.fueleconomy.gov/ws/rest
+  description: FuelEconomy.gov REST API
+tags:
+- name: Emissions
+  description: EPA tailpipe emissions data per vehicle
+paths:
+  /vehicle/emissions/{id}:
+    get:
+      operationId: getVehicleEmissions
+      summary: Get vehicle emissions by ID
+      description: Returns EPA tailpipe emissions certification records for a specific vehicle. Includes emissions family identifier, applicable sales area, emissions standard bin text, and SmartWay and air quality scores. A vehicle may have multiple emissions records for different sales territories.
+      tags:
+      - Emissions
+      parameters:
+      - $ref: '#/components/parameters/vehicleId'
+      responses:
+        '200':
+          description: Emissions records for vehicle
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/EmissionsResponse'
+              example: "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n<emissionsList>\n  <emissionsInfo>\n    <efid>CFMXT04.65H9</efid>\n    <id>31873</id>\n    <salesArea>3</salesArea>\n    <score>2.0</score>\n    <scoreAlt>-1.0</scoreAlt>\n    <smartwayScore>-1</smartwayScore>\n    <standard>B8</standard>\n    <stdText>Bin 8</stdText>\n  </emissionsInfo>\n</emissionsList>\n"
+        '404':
+          description: Vehicle not found
+components:
+  parameters:
+    vehicleId:
+      name: id
+      in: path
+      required: true
+      description: Unique numeric vehicle identifier assigned by the EPA/FuelEconomy.gov. Obtain IDs via the /vehicle/menu/options endpoint.
+      schema:
+        type: integer
+        example: 31873
+  schemas:
+    EmissionsInfo:
+      type: object
+      description: EPA tailpipe emissions certification record for a specific sales territory
+      properties:
+        efid:
+          type: string
+          description: Emissions family identifier (EPA certification code)
+        id:
+          type: integer
+          description: Vehicle ID
+        salesArea:
+          type: integer
+          description: Sales territory code (e.g., 3 = 49-state, 7 = California)
+        score:
+          type: number
+          format: double
+          description: Air pollution score (1-10 scale; -1 if not rated)
+        scoreAlt:
+          type: number
+          format: double
+          description: Air pollution score for alternative fuel; -1 if not rated
+        smartwayScore:
+          type: integer
+          description: SmartWay score (-1 if not rated)
+        standard:
+          type: string
+          description: Emissions standard code (e.g., B5, B8, LEV2-ULEV)
+        stdText:
+          type: string
+          description: Human-readable emissions standard (e.g., "Bin 5", "LEV2-ULEV")
+    EmissionsResponse:
+      type: object
+      description: Container for one or more emissions certification records
+      properties:
+        emissionsInfo:
+          oneOf:
+          - $ref: '#/components/schemas/EmissionsInfo'
+          - type: array
+            items:
+              $ref: '#/components/schemas/EmissionsInfo'
+externalDocs:
+  description: Official API Documentation
+  url: https://www.fueleconomy.gov/feg/ws/index.shtml

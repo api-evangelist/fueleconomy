@@ -1,0 +1,139 @@
+openapi: 3.0.3
+info:
+  title: Fuel Economy Web Services Emissions Menus API
+  description: RESTful web services providing official EPA fuel economy ratings, vehicle specifications, CO2 emissions records, current fuel prices, and community-contributed real-world MPG data for passenger cars and light trucks from 1984 through the current model year. Administered by Oak Ridge National Laboratory for the US Department of Energy and the EPA. All endpoints are free and require no authentication. Responses are returned in XML format.
+  version: '1.0'
+  contact:
+    name: FuelEconomy.gov Feedback
+    email: fueleconomy@ornl.gov
+  x-api-id: fueleconomy:fuel-economy-web-services
+  license:
+    name: Public Domain (US Government Work)
+    url: https://www.usa.gov/government-works
+servers:
+- url: https://www.fueleconomy.gov/ws/rest
+  description: FuelEconomy.gov REST API
+tags:
+- name: Menus
+  description: Navigation menus for year/make/model vehicle lookup
+paths:
+  /vehicle/menu/year:
+    get:
+      operationId: getMenuYears
+      summary: Get available model years
+      description: Returns a list of all model years for which EPA fuel economy data is available. Currently spans 1984 through the upcoming model year. Use the returned year values as input to the make menu endpoint.
+      tags:
+      - Menus
+      responses:
+        '200':
+          description: List of model years
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/MenuItems'
+              example: "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n<menuItems>\n  <menuItem>\n    <text>2027</text>\n    <value>2027</value>\n  </menuItem>\n  <menuItem>\n    <text>2026</text>\n    <value>2026</value>\n  </menuItem>\n  <menuItem>\n    <text>1984</text>\n    <value>1984</value>\n  </menuItem>\n</menuItems>\n"
+  /vehicle/menu/make:
+    get:
+      operationId: getMenuMakes
+      summary: Get vehicle makes for a model year
+      description: Returns a list of all vehicle makes (manufacturers) for which EPA fuel economy data is available for the specified model year. Use the returned make values as input to the model menu endpoint.
+      tags:
+      - Menus
+      parameters:
+      - $ref: '#/components/parameters/yearQuery'
+      responses:
+        '200':
+          description: List of makes for the given year
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/MenuItems'
+              example: "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n<menuItems>\n  <menuItem>\n    <text>Acura</text>\n    <value>Acura</value>\n  </menuItem>\n  <menuItem>\n    <text>Toyota</text>\n    <value>Toyota</value>\n  </menuItem>\n</menuItems>\n"
+  /vehicle/menu/model:
+    get:
+      operationId: getMenuModels
+      summary: Get vehicle models for a year and make
+      description: Returns a list of all vehicle models available for the specified model year and manufacturer. Use the returned model values as input to the options menu endpoint to retrieve vehicle IDs.
+      tags:
+      - Menus
+      parameters:
+      - $ref: '#/components/parameters/yearQuery'
+      - $ref: '#/components/parameters/makeQuery'
+      responses:
+        '200':
+          description: List of models for the given year and make
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/MenuItems'
+              example: "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n<menuItems>\n  <menuItem>\n    <text>Camry LE/SE</text>\n    <value>Camry LE/SE</value>\n  </menuItem>\n  <menuItem>\n    <text>Prius Prime SE</text>\n    <value>Prius Prime SE</value>\n  </menuItem>\n</menuItems>\n"
+  /vehicle/menu/options:
+    get:
+      operationId: getMenuOptions
+      summary: Get vehicle options with IDs for a year, make, and model
+      description: Returns a list of vehicle trim and configuration options for the specified year, make, and model. Each menu item includes the vehicle ID (value) needed to retrieve full EPA fuel economy records via the /vehicle/{id} endpoint.
+      tags:
+      - Menus
+      parameters:
+      - $ref: '#/components/parameters/yearQuery'
+      - $ref: '#/components/parameters/makeQuery'
+      - $ref: '#/components/parameters/modelQuery'
+      responses:
+        '200':
+          description: List of options with vehicle IDs
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/MenuItems'
+              example: "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n<menuItems>\n  <menuItem>\n    <text>2.5L 4cyl CVT (FWD)</text>\n    <value>48891</value>\n  </menuItem>\n</menuItems>\n"
+components:
+  parameters:
+    yearQuery:
+      name: year
+      in: query
+      required: true
+      description: Four-digit model year (e.g., 2024). Valid range is 1984 through current+1.
+      schema:
+        type: integer
+        minimum: 1984
+        example: 2024
+    modelQuery:
+      name: model
+      in: query
+      required: true
+      description: Vehicle model name (e.g., Camry LE/SE). Must match a value from the model menu.
+      schema:
+        type: string
+        example: Corolla
+    makeQuery:
+      name: make
+      in: query
+      required: true
+      description: Vehicle manufacturer name (e.g., Toyota, Ford). Must match a value from the make menu.
+      schema:
+        type: string
+        example: Toyota
+  schemas:
+    MenuItem:
+      type: object
+      description: A single selectable option in a navigation menu
+      properties:
+        text:
+          type: string
+          description: Human-readable display label
+        value:
+          type: string
+          description: Machine-readable value to pass as query parameter or path segment. For the /vehicle/menu/options endpoint, this is the numeric vehicle ID.
+    MenuItems:
+      type: object
+      description: Collection of navigation menu items for vehicle lookup
+      properties:
+        menuItem:
+          oneOf:
+          - $ref: '#/components/schemas/MenuItem'
+          - type: array
+            items:
+              $ref: '#/components/schemas/MenuItem'
+externalDocs:
+  description: Official API Documentation
+  url: https://www.fueleconomy.gov/feg/ws/index.shtml
