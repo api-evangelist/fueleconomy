@@ -8,7 +8,19 @@ description: >-
   to vehicle lookup menus, per-vehicle MPG records, emissions data, current fuel
   prices, and community-contributed real-world fuel economy data.
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: free
+  onboarding: open
+  trial: false
+  try_now: true
+  public: true
+  label: Free · Open access
+  confidence: medium
+  source:
+  - plans
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/fueleconomy.png
 url: https://raw.githubusercontent.com/api-evangelist/fueleconomy/refs/heads/main/apis.yml
 created: "2026-06-13"
 modified: "2026-06-13"
@@ -26,30 +38,78 @@ tags:
   - Government
   - Open Data
 apis:
-  - aid: fueleconomy:fuel-economy-web-services
-    name: Fuel Economy Web Services
-    description: >-
-      RESTful web services providing official EPA fuel economy ratings, vehicle
-      specifications, CO2 emissions records, current fuel prices, and
-      community-contributed real-world MPG data for passenger cars and light
-      trucks from 1984 through the current model year.
-    humanURL: https://www.fueleconomy.gov/feg/ws/index.shtml
-    baseURL: https://www.fueleconomy.gov/ws/rest
-    tags:
-      - Fuel Economy
-      - Vehicles
-      - EPA
-      - MPG
-      - Emissions
-      - Fuel Prices
-    properties:
-      - type: Documentation
-        url: https://www.fueleconomy.gov/feg/ws/index.shtml
-      - type: OpenAPI
-        url: https://raw.githubusercontent.com/api-evangelist/fueleconomy/refs/heads/main/openapi/fueleconomy-fuel-economy-web-services-openapi.yml
-    contact:
-      - FN: FuelEconomy.gov Feedback
-        email: fueleconomy@ornl.gov
+- aid: fueleconomy:fueleconomy-emissions-api
+  name: FuelEconomy.gov Emissions API
+  description: EPA tailpipe emissions data per vehicle
+  humanURL: https://www.fueleconomy.gov/feg/ws/index.shtml
+  baseURL: https://www.fueleconomy.gov/ws/rest
+  tags:
+  - Emissions
+  properties:
+  - type: OpenAPI
+    url: openapi/fueleconomy-emissions-api-openapi.yml
+  - type: Documentation
+    url: https://www.fueleconomy.gov/feg/ws/index.shtml
+- aid: fueleconomy:fueleconomy-fuel-prices-api
+  name: FuelEconomy.gov Fuel Prices API
+  description: Current US fuel prices used by the FuelEconomy.gov platform
+  humanURL: https://www.fueleconomy.gov/feg/ws/index.shtml
+  baseURL: https://www.fueleconomy.gov/ws/rest
+  tags:
+  - Fuel Prices
+  properties:
+  - type: OpenAPI
+    url: openapi/fueleconomy-fuel-prices-api-openapi.yml
+  - type: Documentation
+    url: https://www.fueleconomy.gov/feg/ws/index.shtml
+- aid: fueleconomy:fueleconomy-menus-api
+  name: FuelEconomy.gov Menus API
+  description: Navigation menus for year/make/model vehicle lookup
+  humanURL: https://www.fueleconomy.gov/feg/ws/index.shtml
+  baseURL: https://www.fueleconomy.gov/ws/rest
+  tags:
+  - Menus
+  properties:
+  - type: OpenAPI
+    url: openapi/fueleconomy-menus-api-openapi.yml
+  - type: Documentation
+    url: https://www.fueleconomy.gov/feg/ws/index.shtml
+- aid: fueleconomy:fueleconomy-user-mpg-api
+  name: FuelEconomy.gov User MPG API
+  description: Community-contributed real-world MPG data
+  humanURL: https://www.fueleconomy.gov/feg/ws/index.shtml
+  baseURL: https://www.fueleconomy.gov/ws/rest
+  tags:
+  - User MPG
+  properties:
+  - type: OpenAPI
+    url: openapi/fueleconomy-user-mpg-api-openapi.yml
+  - type: Documentation
+    url: https://www.fueleconomy.gov/feg/ws/index.shtml
+- aid: fueleconomy:fueleconomy-user-mpg-menus-api
+  name: FuelEconomy.gov User MPG Menus API
+  description: Navigation menus for community MPG data lookup
+  humanURL: https://www.fueleconomy.gov/feg/ws/index.shtml
+  baseURL: https://www.fueleconomy.gov/ws/rest
+  tags:
+  - User MPG Menus
+  properties:
+  - type: OpenAPI
+    url: openapi/fueleconomy-user-mpg-menus-api-openapi.yml
+  - type: Documentation
+    url: https://www.fueleconomy.gov/feg/ws/index.shtml
+- aid: fueleconomy:fueleconomy-vehicles-api
+  name: FuelEconomy.gov Vehicles API
+  description: Retrieve EPA fuel economy and specifications for specific vehicles
+  humanURL: https://www.fueleconomy.gov/feg/ws/index.shtml
+  baseURL: https://www.fueleconomy.gov/ws/rest
+  tags:
+  - Vehicles
+  properties:
+  - type: OpenAPI
+    url: openapi/fueleconomy-vehicles-api-openapi.yml
+  - type: Documentation
+    url: https://www.fueleconomy.gov/feg/ws/index.shtml
 common:
   - type: AgenticAccess
     url: agentic-access/fueleconomy-agentic-access.yml
