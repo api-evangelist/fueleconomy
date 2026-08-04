@@ -1,0 +1,884 @@
+openapi: 3.0.3
+info:
+  title: Fuel Economy Web Services
+  description: >-
+    RESTful web services providing official EPA fuel economy ratings, vehicle
+    specifications, CO2 emissions records, current fuel prices, and
+    community-contributed real-world MPG data for passenger cars and light
+    trucks from 1984 through the current model year. Administered by Oak Ridge
+    National Laboratory for the US Department of Energy and the EPA. All
+    endpoints are free and require no authentication. Responses are returned
+    in XML format.
+  version: "1.0"
+  contact:
+    name: FuelEconomy.gov Feedback
+    email: fueleconomy@ornl.gov
+  x-api-id: fueleconomy:fuel-economy-web-services
+  license:
+    name: Public Domain (US Government Work)
+    url: https://www.usa.gov/government-works
+servers:
+  - url: https://www.fueleconomy.gov/ws/rest
+    description: FuelEconomy.gov REST API
+externalDocs:
+  description: Official API Documentation
+  url: https://www.fueleconomy.gov/feg/ws/index.shtml
+tags:
+  - name: Vehicles
+    description: Retrieve EPA fuel economy and specifications for specific vehicles
+  - name: Menus
+    description: Navigation menus for year/make/model vehicle lookup
+  - name: Emissions
+    description: EPA tailpipe emissions data per vehicle
+  - name: Fuel Prices
+    description: Current US fuel prices used by the FuelEconomy.gov platform
+  - name: User MPG
+    description: Community-contributed real-world MPG data
+  - name: User MPG Menus
+    description: Navigation menus for community MPG data lookup
+
+paths:
+  /vehicle/{id}:
+    get:
+      operationId: getVehicle
+      summary: Get vehicle by ID
+      description: >-
+        Returns full EPA fuel economy record for a specific vehicle including
+        city, highway, and combined MPG ratings, CO2 tailpipe emissions,
+        annual fuel cost estimates, engine specifications, transmission,
+        drive type, vehicle class, and SmartWay scores.
+      tags:
+        - Vehicles
+      parameters:
+        - $ref: '#/components/parameters/vehicleId'
+      responses:
+        "200":
+          description: Vehicle record
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Vehicle'
+              example: |
+                <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+                <vehicle>
+                  <id>31873</id>
+                  <year>2012</year>
+                  <make>Ford</make>
+                  <model>E150 Van FFV</model>
+                  <city08>13</city08>
+                  <highway08>17</highway08>
+                  <comb08>15</comb08>
+                  <fuelType>Gasoline or E85</fuelType>
+                  <fuelType1>Regular Gasoline</fuelType1>
+                  <fuelType2>E85</fuelType2>
+                  <cylinders>8</cylinders>
+                  <displ>4.6</displ>
+                  <trany>Automatic 4-spd</trany>
+                  <drive>Rear-Wheel Drive</drive>
+                  <VClass>Vans, Cargo Type</VClass>
+                  <co2TailpipeGpm>592.4666666666667</co2TailpipeGpm>
+                  <fuelCost08>4150</fuelCost08>
+                  <ghgScore>-1</ghgScore>
+                  <feScore>-1</feScore>
+                </vehicle>
+        "404":
+          description: Vehicle not found
+
+  /vehicle/emissions/{id}:
+    get:
+      operationId: getVehicleEmissions
+      summary: Get vehicle emissions by ID
+      description: >-
+        Returns EPA tailpipe emissions certification records for a specific
+        vehicle. Includes emissions family identifier, applicable sales area,
+        emissions standard bin text, and SmartWay and air quality scores.
+        A vehicle may have multiple emissions records for different sales
+        territories.
+      tags:
+        - Emissions
+      parameters:
+        - $ref: '#/components/parameters/vehicleId'
+      responses:
+        "200":
+          description: Emissions records for vehicle
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/EmissionsResponse'
+              example: |
+                <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+                <emissionsList>
+                  <emissionsInfo>
+                    <efid>CFMXT04.65H9</efid>
+                    <id>31873</id>
+                    <salesArea>3</salesArea>
+                    <score>2.0</score>
+                    <scoreAlt>-1.0</scoreAlt>
+                    <smartwayScore>-1</smartwayScore>
+                    <standard>B8</standard>
+                    <stdText>Bin 8</stdText>
+                  </emissionsInfo>
+                </emissionsList>
+        "404":
+          description: Vehicle not found
+
+  /vehicle/menu/year:
+    get:
+      operationId: getMenuYears
+      summary: Get available model years
+      description: >-
+        Returns a list of all model years for which EPA fuel economy data is
+        available. Currently spans 1984 through the upcoming model year.
+        Use the returned year values as input to the make menu endpoint.
+      tags:
+        - Menus
+      responses:
+        "200":
+          description: List of model years
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/MenuItems'
+              example: |
+                <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+                <menuItems>
+                  <menuItem>
+                    <text>2027</text>
+                    <value>2027</value>
+                  </menuItem>
+                  <menuItem>
+                    <text>2026</text>
+                    <value>2026</value>
+                  </menuItem>
+                  <menuItem>
+                    <text>1984</text>
+                    <value>1984</value>
+                  </menuItem>
+                </menuItems>
+
+  /vehicle/menu/make:
+    get:
+      operationId: getMenuMakes
+      summary: Get vehicle makes for a model year
+      description: >-
+        Returns a list of all vehicle makes (manufacturers) for which EPA
+        fuel economy data is available for the specified model year.
+        Use the returned make values as input to the model menu endpoint.
+      tags:
+        - Menus
+      parameters:
+        - $ref: '#/components/parameters/yearQuery'
+      responses:
+        "200":
+          description: List of makes for the given year
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/MenuItems'
+              example: |
+                <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+                <menuItems>
+                  <menuItem>
+                    <text>Acura</text>
+                    <value>Acura</value>
+                  </menuItem>
+                  <menuItem>
+                    <text>Toyota</text>
+                    <value>Toyota</value>
+                  </menuItem>
+                </menuItems>
+
+  /vehicle/menu/model:
+    get:
+      operationId: getMenuModels
+      summary: Get vehicle models for a year and make
+      description: >-
+        Returns a list of all vehicle models available for the specified
+        model year and manufacturer. Use the returned model values as input
+        to the options menu endpoint to retrieve vehicle IDs.
+      tags:
+        - Menus
+      parameters:
+        - $ref: '#/components/parameters/yearQuery'
+        - $ref: '#/components/parameters/makeQuery'
+      responses:
+        "200":
+          description: List of models for the given year and make
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/MenuItems'
+              example: |
+                <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+                <menuItems>
+                  <menuItem>
+                    <text>Camry LE/SE</text>
+                    <value>Camry LE/SE</value>
+                  </menuItem>
+                  <menuItem>
+                    <text>Prius Prime SE</text>
+                    <value>Prius Prime SE</value>
+                  </menuItem>
+                </menuItems>
+
+  /vehicle/menu/options:
+    get:
+      operationId: getMenuOptions
+      summary: Get vehicle options with IDs for a year, make, and model
+      description: >-
+        Returns a list of vehicle trim and configuration options for the
+        specified year, make, and model. Each menu item includes the vehicle
+        ID (value) needed to retrieve full EPA fuel economy records via
+        the /vehicle/{id} endpoint.
+      tags:
+        - Menus
+      parameters:
+        - $ref: '#/components/parameters/yearQuery'
+        - $ref: '#/components/parameters/makeQuery'
+        - $ref: '#/components/parameters/modelQuery'
+      responses:
+        "200":
+          description: List of options with vehicle IDs
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/MenuItems'
+              example: |
+                <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+                <menuItems>
+                  <menuItem>
+                    <text>2.5L 4cyl CVT (FWD)</text>
+                    <value>48891</value>
+                  </menuItem>
+                </menuItems>
+
+  /fuelprices:
+    get:
+      operationId: getFuelPrices
+      summary: Get current fuel prices
+      description: >-
+        Returns the current US average fuel prices (in dollars per gallon or
+        per kWh for electricity) used by the FuelEconomy.gov cost calculator.
+        Includes regular, midgrade, and premium gasoline; diesel; E85 ethanol
+        blend; compressed natural gas (CNG); liquefied petroleum gas (LPG);
+        and electricity.
+      tags:
+        - Fuel Prices
+      responses:
+        "200":
+          description: Current fuel prices
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/FuelPrices'
+              example: |
+                <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+                <fuelPrices>
+                  <cng>2.96</cng>
+                  <diesel>5.21</diesel>
+                  <e85>2.63</e85>
+                  <electric>0.15</electric>
+                  <lpg>3.42</lpg>
+                  <midgrade>4.76</midgrade>
+                  <premium>5.14</premium>
+                  <regular>4.15</regular>
+                </fuelPrices>
+
+  /ympg/shared/ympgVehicle/{id}:
+    get:
+      operationId: getUserMpgSummary
+      summary: Get user MPG summary for a vehicle
+      description: >-
+        Returns an aggregate summary of community-contributed real-world MPG
+        records for the specified vehicle. Includes average, minimum, and
+        maximum MPG values, the total number of records, and the percentage
+        breakdown between city and highway driving across all submissions.
+      tags:
+        - User MPG
+      parameters:
+        - $ref: '#/components/parameters/vehicleId'
+      responses:
+        "200":
+          description: Aggregated user MPG summary for vehicle
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/YmpgVehicleSummary'
+              example: |
+                <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+                <ympgVehicle>
+                  <vehicleId>26425</vehicleId>
+                  <avgMpg>48.627030971</avgMpg>
+                  <maxMpg>74</maxMpg>
+                  <minMpg>30</minMpg>
+                  <recordCount>202</recordCount>
+                  <cityPercent>45</cityPercent>
+                  <highwayPercent>55</highwayPercent>
+                </ympgVehicle>
+
+  /ympg/shared/ympgDriverVehicle/{id}:
+    get:
+      operationId: getUserMpgRecords
+      summary: Get individual user MPG records for a vehicle
+      description: >-
+        Returns the list of individual community-contributed real-world MPG
+        records for the specified vehicle. Each record includes the reported
+        MPG, the city/highway driving mix, the US state, and the date of
+        the last update.
+      tags:
+        - User MPG
+      parameters:
+        - $ref: '#/components/parameters/vehicleId'
+      responses:
+        "200":
+          description: List of individual user MPG records
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/YmpgDriverVehicleList'
+              example: |
+                <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+                <ympgDriverVehicleList>
+                  <ympgDriverVehicle>
+                    <vehicleId>26425</vehicleId>
+                    <mpg>48.6</mpg>
+                    <cityPercent>45</cityPercent>
+                    <highwayPercent>55</highwayPercent>
+                    <state>CA</state>
+                    <lastDate>2024-03-15T00:00:00-04:00</lastDate>
+                  </ympgDriverVehicle>
+                </ympgDriverVehicleList>
+
+  /ympg/shared/menu/make:
+    get:
+      operationId: getUserMpgMenuMakes
+      summary: Get makes with community MPG data
+      description: >-
+        Returns a list of vehicle makes for which community-contributed
+        real-world MPG data exists. Spans historical makes including
+        discontinued brands. Use the returned make values with the
+        /ympg/shared/menu/model endpoint.
+      tags:
+        - User MPG Menus
+      responses:
+        "200":
+          description: List of makes with shared MPG data
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/MenuItems'
+
+  /ympg/shared/menu/model:
+    get:
+      operationId: getUserMpgMenuModels
+      summary: Get models with community MPG data for a make
+      description: >-
+        Returns a list of vehicle models for the specified make for which
+        community-contributed real-world MPG data exists. Use the returned
+        values with the /ympg/shared/vehicles endpoint.
+      tags:
+        - User MPG Menus
+      parameters:
+        - $ref: '#/components/parameters/makeQuery'
+      responses:
+        "200":
+          description: List of models with shared MPG data
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/MenuItems'
+
+  /ympg/shared/vehicles:
+    get:
+      operationId: getUserMpgVehicles
+      summary: Get vehicles with community MPG data for a make and model
+      description: >-
+        Returns a list of vehicle records for the specified make and model
+        that have community-contributed real-world MPG data. Each record
+        contains full EPA fuel economy specifications and can be used to
+        retrieve user MPG summaries via /ympg/shared/ympgVehicle/{id}.
+      tags:
+        - User MPG Menus
+      parameters:
+        - $ref: '#/components/parameters/makeQuery'
+        - $ref: '#/components/parameters/modelQuery'
+      responses:
+        "200":
+          description: List of vehicle records with shared MPG data
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/VehicleList'
+
+components:
+  parameters:
+    vehicleId:
+      name: id
+      in: path
+      required: true
+      description: >-
+        Unique numeric vehicle identifier assigned by the EPA/FuelEconomy.gov.
+        Obtain IDs via the /vehicle/menu/options endpoint.
+      schema:
+        type: integer
+        example: 31873
+
+    yearQuery:
+      name: year
+      in: query
+      required: true
+      description: Four-digit model year (e.g., 2024). Valid range is 1984 through current+1.
+      schema:
+        type: integer
+        minimum: 1984
+        example: 2024
+
+    makeQuery:
+      name: make
+      in: query
+      required: true
+      description: Vehicle manufacturer name (e.g., Toyota, Ford). Must match a value from the make menu.
+      schema:
+        type: string
+        example: Toyota
+
+    modelQuery:
+      name: model
+      in: query
+      required: true
+      description: Vehicle model name (e.g., Camry LE/SE). Must match a value from the model menu.
+      schema:
+        type: string
+        example: Corolla
+
+  schemas:
+    Vehicle:
+      type: object
+      description: >-
+        Full EPA fuel economy and specification record for a single vehicle
+        configuration (year/make/model/trim/option).
+      properties:
+        id:
+          type: integer
+          description: Unique vehicle identifier
+        year:
+          type: integer
+          description: Model year
+        make:
+          type: string
+          description: Vehicle manufacturer
+        model:
+          type: string
+          description: Vehicle model and trim designation
+        baseModel:
+          type: string
+          description: Base model name without trim suffix
+        atvType:
+          type: string
+          description: >-
+            Alternative fuel vehicle type code (e.g., FFV for flex-fuel,
+            EV, Hybrid, PHEV, FCV)
+        city08:
+          type: integer
+          description: City MPG for primary fuel (EPA rating)
+        city08U:
+          type: number
+          format: double
+          description: Unrounded city MPG for primary fuel
+        cityA08:
+          type: integer
+          description: City MPG for alternative fuel (e.g., E85)
+        cityA08U:
+          type: number
+          format: double
+          description: Unrounded city MPG for alternative fuel
+        highway08:
+          type: integer
+          description: Highway MPG for primary fuel (EPA rating)
+        highway08U:
+          type: number
+          format: double
+          description: Unrounded highway MPG for primary fuel
+        highwayA08:
+          type: integer
+          description: Highway MPG for alternative fuel
+        highwayA08U:
+          type: number
+          format: double
+          description: Unrounded highway MPG for alternative fuel
+        comb08:
+          type: integer
+          description: Combined MPG for primary fuel (EPA rating, 55% hwy / 45% city)
+        comb08U:
+          type: number
+          format: double
+          description: Unrounded combined MPG for primary fuel
+        combA08:
+          type: integer
+          description: Combined MPG for alternative fuel
+        combA08U:
+          type: number
+          format: double
+          description: Unrounded combined MPG for alternative fuel
+        fuelType:
+          type: string
+          description: Fuel type description (e.g., "Regular Gasoline", "Gasoline or E85")
+        fuelType1:
+          type: string
+          description: Primary fuel type
+        fuelType2:
+          type: string
+          description: Secondary/alternative fuel type
+        cylinders:
+          type: integer
+          description: Number of engine cylinders
+        displ:
+          type: number
+          format: double
+          description: Engine displacement in liters
+        trany:
+          type: string
+          description: Transmission description (e.g., "Automatic 4-spd", "CVT")
+        drive:
+          type: string
+          description: Drive axle type (e.g., "Front-Wheel Drive", "All-Wheel Drive")
+        VClass:
+          type: string
+          description: EPA vehicle size class
+        co2TailpipeGpm:
+          type: number
+          format: double
+          description: CO2 tailpipe emissions in grams per mile for primary fuel
+        co2TailpipeAGpm:
+          type: number
+          format: double
+          description: CO2 tailpipe emissions in grams per mile for alternative fuel
+        fuelCost08:
+          type: integer
+          description: Estimated annual fuel cost in USD for primary fuel
+        fuelCostA08:
+          type: integer
+          description: Estimated annual fuel cost in USD for alternative fuel
+        barrels08:
+          type: number
+          format: double
+          description: Barrels of oil used per year for primary fuel
+        barrelsA08:
+          type: number
+          format: double
+          description: Barrels of oil used per year for alternative fuel
+        ghgScore:
+          type: integer
+          description: EPA greenhouse gas score (1-10 scale; -1 if not rated)
+        ghgScoreA:
+          type: integer
+          description: EPA greenhouse gas score for alternative fuel
+        feScore:
+          type: integer
+          description: EPA fuel economy score (1-10 scale; -1 if not rated)
+        co2:
+          type: integer
+          description: CO2 emissions (g/mile) from official test; -1 if not available
+        co2A:
+          type: integer
+          description: CO2 emissions for alternative fuel; -1 if not available
+        smartwayScore:
+          type: integer
+          description: SmartWay environmental score (-1 if not rated)
+        guzzler:
+          type: string
+          description: Gas guzzler tax designation if applicable
+        mfrCode:
+          type: string
+          description: Manufacturer code
+        engId:
+          type: integer
+          description: Engine identifier
+        eng_dscr:
+          type: string
+          description: Engine descriptor (e.g., GUZZLER, TURBO, FFV)
+        trans_dscr:
+          type: string
+          description: Transmission descriptor codes
+        sCharger:
+          type: string
+          description: Supercharger indicator
+        tCharger:
+          type: string
+          description: Turbocharger indicator
+        startStop:
+          type: string
+          description: Start-stop technology indicator
+        cylDeact:
+          type: string
+          description: Cylinder deactivation indicator code
+        cylDeactYesNo:
+          type: string
+          description: Cylinder deactivation human-readable (Yes/No)
+        mpgData:
+          type: string
+          description: Source of MPG data indicator (Y = EPA tested, N = estimated)
+        mpgRevised:
+          type: boolean
+          description: Whether MPG data has been revised
+        phevBlended:
+          type: boolean
+          description: Whether PHEV operates in blended mode
+        phevCity:
+          type: integer
+          description: PHEV city MPGe
+        phevHwy:
+          type: integer
+          description: PHEV highway MPGe
+        phevComb:
+          type: integer
+          description: PHEV combined MPGe
+        range:
+          type: integer
+          description: Electric range in miles (for EVs/PHEVs)
+        rangeA:
+          type: integer
+          description: Range on alternative fuel
+        charge120:
+          type: number
+          format: double
+          description: Hours to charge on 120V outlet
+        charge240:
+          type: number
+          format: double
+          description: Hours to charge on 240V outlet
+        battery:
+          type: number
+          format: double
+          description: Battery capacity in kWh (-1 if not applicable)
+        evMotor:
+          type: string
+          description: Electric motor description
+        combE:
+          type: number
+          format: double
+          description: Combined electricity consumption (kWh/100mi)
+        cityE:
+          type: number
+          format: double
+          description: City electricity consumption (kWh/100mi)
+        highwayE:
+          type: number
+          format: double
+          description: Highway electricity consumption (kWh/100mi)
+        youSaveSpend:
+          type: integer
+          description: >-
+            Estimated 5-year fuel cost savings (positive) or additional spend
+            (negative) versus average new vehicle
+        hlv:
+          type: integer
+          description: Hatchback luggage volume (cu ft)
+        hpv:
+          type: integer
+          description: Hatchback passenger volume (cu ft)
+        lv2:
+          type: integer
+          description: 2-door luggage volume (cu ft)
+        lv4:
+          type: integer
+          description: 4-door luggage volume (cu ft)
+        pv2:
+          type: integer
+          description: 2-door passenger volume (cu ft)
+        pv4:
+          type: integer
+          description: 4-door passenger volume (cu ft)
+        emissionsList:
+          $ref: '#/components/schemas/EmissionsResponse'
+        createdOn:
+          type: string
+          format: date-time
+          description: Date/time the record was created
+        modifiedOn:
+          type: string
+          format: date-time
+          description: Date/time the record was last modified
+
+    EmissionsInfo:
+      type: object
+      description: EPA tailpipe emissions certification record for a specific sales territory
+      properties:
+        efid:
+          type: string
+          description: Emissions family identifier (EPA certification code)
+        id:
+          type: integer
+          description: Vehicle ID
+        salesArea:
+          type: integer
+          description: Sales territory code (e.g., 3 = 49-state, 7 = California)
+        score:
+          type: number
+          format: double
+          description: Air pollution score (1-10 scale; -1 if not rated)
+        scoreAlt:
+          type: number
+          format: double
+          description: Air pollution score for alternative fuel; -1 if not rated
+        smartwayScore:
+          type: integer
+          description: SmartWay score (-1 if not rated)
+        standard:
+          type: string
+          description: Emissions standard code (e.g., B5, B8, LEV2-ULEV)
+        stdText:
+          type: string
+          description: Human-readable emissions standard (e.g., "Bin 5", "LEV2-ULEV")
+
+    EmissionsResponse:
+      type: object
+      description: Container for one or more emissions certification records
+      properties:
+        emissionsInfo:
+          oneOf:
+            - $ref: '#/components/schemas/EmissionsInfo'
+            - type: array
+              items:
+                $ref: '#/components/schemas/EmissionsInfo'
+
+    MenuItem:
+      type: object
+      description: A single selectable option in a navigation menu
+      properties:
+        text:
+          type: string
+          description: Human-readable display label
+        value:
+          type: string
+          description: >-
+            Machine-readable value to pass as query parameter or path segment.
+            For the /vehicle/menu/options endpoint, this is the numeric vehicle ID.
+
+    MenuItems:
+      type: object
+      description: Collection of navigation menu items for vehicle lookup
+      properties:
+        menuItem:
+          oneOf:
+            - $ref: '#/components/schemas/MenuItem'
+            - type: array
+              items:
+                $ref: '#/components/schemas/MenuItem'
+
+    FuelPrices:
+      type: object
+      description: Current US average fuel prices used by FuelEconomy.gov cost calculator
+      properties:
+        cng:
+          type: number
+          format: double
+          description: Compressed natural gas price (USD per GGE)
+        diesel:
+          type: number
+          format: double
+          description: Diesel fuel price (USD per gallon)
+        e85:
+          type: number
+          format: double
+          description: E85 ethanol blend price (USD per gallon)
+        electric:
+          type: number
+          format: double
+          description: Electricity price (USD per kWh)
+        lpg:
+          type: number
+          format: double
+          description: Liquefied petroleum gas price (USD per gallon)
+        midgrade:
+          type: number
+          format: double
+          description: Mid-grade gasoline price (USD per gallon)
+        premium:
+          type: number
+          format: double
+          description: Premium gasoline price (USD per gallon)
+        regular:
+          type: number
+          format: double
+          description: Regular gasoline price (USD per gallon)
+
+    YmpgVehicleSummary:
+      type: object
+      description: Aggregated summary of community-contributed real-world MPG data for a vehicle
+      properties:
+        vehicleId:
+          type: integer
+          description: Vehicle identifier
+        avgMpg:
+          type: number
+          format: double
+          description: Average MPG across all community submissions
+        maxMpg:
+          type: number
+          format: double
+          description: Highest MPG recorded in community submissions
+        minMpg:
+          type: number
+          format: double
+          description: Lowest MPG recorded in community submissions
+        recordCount:
+          type: integer
+          description: Total number of community MPG submissions
+        cityPercent:
+          type: number
+          format: double
+          description: Aggregate percentage of city driving across submissions
+        highwayPercent:
+          type: number
+          format: double
+          description: Aggregate percentage of highway driving across submissions
+
+    YmpgDriverVehicle:
+      type: object
+      description: Individual community-contributed real-world MPG record
+      properties:
+        vehicleId:
+          type: integer
+          description: Vehicle identifier
+        mpg:
+          type: number
+          format: double
+          description: Reported real-world MPG for this record
+        cityPercent:
+          type: number
+          format: double
+          description: Percentage of city driving for this record
+        highwayPercent:
+          type: number
+          format: double
+          description: Percentage of highway driving for this record
+        state:
+          type: string
+          description: Two-letter US state abbreviation where driving occurred
+        lastDate:
+          type: string
+          format: date-time
+          description: Timestamp of the last update to this record
+
+    YmpgDriverVehicleList:
+      type: object
+      description: List of individual community MPG records for a vehicle
+      properties:
+        ympgDriverVehicle:
+          oneOf:
+            - $ref: '#/components/schemas/YmpgDriverVehicle'
+            - type: array
+              items:
+                $ref: '#/components/schemas/YmpgDriverVehicle'
+
+    VehicleList:
+      type: object
+      description: List of vehicle records
+      properties:
+        vehicle:
+          oneOf:
+            - $ref: '#/components/schemas/Vehicle'
+            - type: array
+              items:
+                $ref: '#/components/schemas/Vehicle'

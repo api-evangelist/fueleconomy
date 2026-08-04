@@ -1,0 +1,24 @@
+{
+  "provider": "fueleconomy",
+  "sources": [
+    "fueleconomy-emissions-api-openapi.yml",
+    "fueleconomy-fuel-prices-api-openapi.yml",
+    "fueleconomy-menus-api-openapi.yml",
+    "fueleconomy-user-mpg-api-openapi.yml",
+    "fueleconomy-user-mpg-menus-api-openapi.yml",
+    "fueleconomy-vehicles-api-openapi.yml"
+  ],
+  "outputs": [
+    "fueleconomy-emissions-api-openapi.yml",
+    "fueleconomy-fuel-prices-api-openapi.yml",
+    "fueleconomy-menus-api-openapi.yml",
+    "fueleconomy-user-mpg-api-openapi.yml",
+    "fueleconomy-user-mpg-menus-api-openapi.yml",
+    "fueleconomy-vehicles-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
