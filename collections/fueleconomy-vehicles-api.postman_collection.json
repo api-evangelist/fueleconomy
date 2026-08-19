@@ -1,0 +1,158 @@
+{
+  "item": [
+    {
+      "id": "58f1c69d-a377-4b13-afbc-90df1cb4b20c",
+      "name": "Vehicles",
+      "description": {
+        "content": "Retrieve EPA fuel economy and specifications for specific vehicles",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2bce5a1f-ec29-4156-9e6a-47e6ace38b40",
+          "name": "Get vehicle by ID",
+          "request": {
+            "name": "Get vehicle by ID",
+            "description": {
+              "content": "Returns full EPA fuel economy record for a specific vehicle including city, highway, and combined MPG ratings, CO2 tailpipe emissions, annual fuel cost estimates, engine specifications, transmission, drive type, vehicle class, and SmartWay scores.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "vehicle",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) Unique numeric vehicle identifier assigned by the EPA/FuelEconomy.gov. Obtain IDs via the /vehicle/menu/options endpoint."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/xml"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1b7df9ce-0497-4f1a-b683-72361055ce45",
+              "name": "Vehicle record",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vehicle",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique numeric vehicle identifier assigned by the EPA/FuelEconomy.gov. Obtain IDs via the /vehicle/menu/options endpoint."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/xml"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/xml"
+                }
+              ],
+              "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n",
+              "cookie": [],
+              "_postman_previewlanguage": "xml"
+            },
+            {
+              "id": "2d31d2d2-128b-4dc8-92f9-6581f9812bbb",
+              "name": "Vehicle not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vehicle",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique numeric vehicle identifier assigned by the EPA/FuelEconomy.gov. Obtain IDs via the /vehicle/menu/options endpoint."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://www.fueleconomy.gov/ws/rest",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "19bff160-fdb1-453a-97f3-8c21f36d4b4e",
+    "name": "Fuel Economy Web Services Emissions Vehicles API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "RESTful web services providing official EPA fuel economy ratings, vehicle specifications, CO2 emissions records, current fuel prices, and community-contributed real-world MPG data for passenger cars and light trucks from 1984 through the current model year. Administered by Oak Ridge National Laboratory for the US Department of Energy and the EPA. All endpoints are free and require no authentication. Responses are returned in XML format.\n\nContact Support:\n Name: FuelEconomy.gov Feedback\n Email: fueleconomy@ornl.gov",
+      "type": "text/plain"
+    }
+  }
+}

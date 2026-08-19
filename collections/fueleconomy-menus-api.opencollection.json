@@ -1,0 +1,104 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fuel Economy Web Services Emissions Menus API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Menus",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get available model years",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.fueleconomy.gov/ws/rest/vehicle/menu/year"
+          },
+          "docs": "Returns a list of all model years for which EPA fuel economy data is available. Currently spans 1984 through the upcoming model year. Use the returned year values as input to the make menu endpoint."
+        },
+        {
+          "info": {
+            "name": "Get vehicle makes for a model year",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.fueleconomy.gov/ws/rest/vehicle/menu/make",
+            "params": [
+              {
+                "name": "year",
+                "value": "",
+                "type": "query",
+                "description": "Four-digit model year (e.g., 2024). Valid range is 1984 through current+1."
+              }
+            ]
+          },
+          "docs": "Returns a list of all vehicle makes (manufacturers) for which EPA fuel economy data is available for the specified model year. Use the returned make values as input to the model menu endpoint."
+        },
+        {
+          "info": {
+            "name": "Get vehicle models for a year and make",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.fueleconomy.gov/ws/rest/vehicle/menu/model",
+            "params": [
+              {
+                "name": "year",
+                "value": "",
+                "type": "query",
+                "description": "Four-digit model year (e.g., 2024). Valid range is 1984 through current+1."
+              },
+              {
+                "name": "make",
+                "value": "",
+                "type": "query",
+                "description": "Vehicle manufacturer name (e.g., Toyota, Ford). Must match a value from the make menu."
+              }
+            ]
+          },
+          "docs": "Returns a list of all vehicle models available for the specified model year and manufacturer. Use the returned model values as input to the options menu endpoint to retrieve vehicle IDs."
+        },
+        {
+          "info": {
+            "name": "Get vehicle options with IDs for a year, make, and model",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.fueleconomy.gov/ws/rest/vehicle/menu/options",
+            "params": [
+              {
+                "name": "year",
+                "value": "",
+                "type": "query",
+                "description": "Four-digit model year (e.g., 2024). Valid range is 1984 through current+1."
+              },
+              {
+                "name": "make",
+                "value": "",
+                "type": "query",
+                "description": "Vehicle manufacturer name (e.g., Toyota, Ford). Must match a value from the make menu."
+              },
+              {
+                "name": "model",
+                "value": "",
+                "type": "query",
+                "description": "Vehicle model name (e.g., Camry LE/SE). Must match a value from the model menu."
+              }
+            ]
+          },
+          "docs": "Returns a list of vehicle trim and configuration options for the specified year, make, and model. Each menu item includes the vehicle ID (value) needed to retrieve full EPA fuel economy records via the /vehicle/{id} endpoint."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,37 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fuel Economy Web Services Emissions Vehicles API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Vehicles",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get vehicle by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.fueleconomy.gov/ws/rest/vehicle/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique numeric vehicle identifier assigned by the EPA/FuelEconomy.gov. Obtain IDs via the /vehicle/menu/options endpoint."
+              }
+            ]
+          },
+          "docs": "Returns full EPA fuel economy record for a specific vehicle including city, highway, and combined MPG ratings, CO2 tailpipe emissions, annual fuel cost estimates, engine specifications, transmission, drive type, vehicle class, and SmartWay scores."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

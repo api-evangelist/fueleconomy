@@ -1,0 +1,394 @@
+{
+  "item": [
+    {
+      "id": "afe10834-89ed-4af8-a485-5d3c58eb9761",
+      "name": "Menus",
+      "description": {
+        "content": "Navigation menus for year/make/model vehicle lookup",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0cdf8058-b595-49e8-9920-8a08a94b762a",
+          "name": "Get available model years",
+          "request": {
+            "name": "Get available model years",
+            "description": {
+              "content": "Returns a list of all model years for which EPA fuel economy data is available. Currently spans 1984 through the upcoming model year. Use the returned year values as input to the make menu endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "vehicle",
+                "menu",
+                "year"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/xml"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d22f4791-3b71-48c9-a172-1661c869ac92",
+              "name": "List of model years",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vehicle",
+                    "menu",
+                    "year"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/xml"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/xml"
+                }
+              ],
+              "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n",
+              "cookie": [],
+              "_postman_previewlanguage": "xml"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c4886557-d9cc-4c7d-b552-3e5b63d06e53",
+          "name": "Get vehicle makes for a model year",
+          "request": {
+            "name": "Get vehicle makes for a model year",
+            "description": {
+              "content": "Returns a list of all vehicle makes (manufacturers) for which EPA fuel economy data is available for the specified model year. Use the returned make values as input to the model menu endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "vehicle",
+                "menu",
+                "make"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "year",
+                  "value": "<integer>",
+                  "description": "(Required) Four-digit model year (e.g., 2024). Valid range is 1984 through current+1."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/xml"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "03e934a9-3239-4eb7-ad9b-228635fb5898",
+              "name": "List of makes for the given year",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vehicle",
+                    "menu",
+                    "make"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "year",
+                      "value": "2024"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/xml"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/xml"
+                }
+              ],
+              "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n",
+              "cookie": [],
+              "_postman_previewlanguage": "xml"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "94b15bb9-0e5c-4019-9da7-17f727f4b916",
+          "name": "Get vehicle models for a year and make",
+          "request": {
+            "name": "Get vehicle models for a year and make",
+            "description": {
+              "content": "Returns a list of all vehicle models available for the specified model year and manufacturer. Use the returned model values as input to the options menu endpoint to retrieve vehicle IDs.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "vehicle",
+                "menu",
+                "model"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "year",
+                  "value": "<integer>",
+                  "description": "(Required) Four-digit model year (e.g., 2024). Valid range is 1984 through current+1."
+                },
+                {
+                  "disabled": false,
+                  "key": "make",
+                  "value": "<string>",
+                  "description": "(Required) Vehicle manufacturer name (e.g., Toyota, Ford). Must match a value from the make menu."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/xml"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5e70e048-197b-4d25-972c-1a86130559f1",
+              "name": "List of models for the given year and make",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vehicle",
+                    "menu",
+                    "model"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "year",
+                      "value": "2024"
+                    },
+                    {
+                      "key": "make",
+                      "value": "Toyota"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/xml"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/xml"
+                }
+              ],
+              "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n",
+              "cookie": [],
+              "_postman_previewlanguage": "xml"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "282a39b1-f271-4af0-93dd-74c0bf964e86",
+          "name": "Get vehicle options with IDs for a year, make, and model",
+          "request": {
+            "name": "Get vehicle options with IDs for a year, make, and model",
+            "description": {
+              "content": "Returns a list of vehicle trim and configuration options for the specified year, make, and model. Each menu item includes the vehicle ID (value) needed to retrieve full EPA fuel economy records via the /vehicle/{id} endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "vehicle",
+                "menu",
+                "options"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "year",
+                  "value": "<integer>",
+                  "description": "(Required) Four-digit model year (e.g., 2024). Valid range is 1984 through current+1."
+                },
+                {
+                  "disabled": false,
+                  "key": "make",
+                  "value": "<string>",
+                  "description": "(Required) Vehicle manufacturer name (e.g., Toyota, Ford). Must match a value from the make menu."
+                },
+                {
+                  "disabled": false,
+                  "key": "model",
+                  "value": "<string>",
+                  "description": "(Required) Vehicle model name (e.g., Camry LE/SE). Must match a value from the model menu."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/xml"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6a89af84-bfcb-46f3-b547-6164cb71d91d",
+              "name": "List of options with vehicle IDs",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "vehicle",
+                    "menu",
+                    "options"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "year",
+                      "value": "2024"
+                    },
+                    {
+                      "key": "make",
+                      "value": "Toyota"
+                    },
+                    {
+                      "key": "model",
+                      "value": "Corolla"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/xml"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/xml"
+                }
+              ],
+              "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n",
+              "cookie": [],
+              "_postman_previewlanguage": "xml"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://www.fueleconomy.gov/ws/rest",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "7b611964-86b0-4c24-b8e0-c183536a31ed",
+    "name": "Fuel Economy Web Services Emissions Menus API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "RESTful web services providing official EPA fuel economy ratings, vehicle specifications, CO2 emissions records, current fuel prices, and community-contributed real-world MPG data for passenger cars and light trucks from 1984 through the current model year. Administered by Oak Ridge National Laboratory for the US Department of Energy and the EPA. All endpoints are free and require no authentication. Responses are returned in XML format.\n\nContact Support:\n Name: FuelEconomy.gov Feedback\n Email: fueleconomy@ornl.gov",
+      "type": "text/plain"
+    }
+  }
+}

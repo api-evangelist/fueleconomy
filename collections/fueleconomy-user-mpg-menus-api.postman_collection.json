@@ -1,0 +1,292 @@
+{
+  "item": [
+    {
+      "id": "0b25563d-a2bd-4efd-a3b1-67555d8de26a",
+      "name": "User MPG Menus",
+      "description": {
+        "content": "Navigation menus for community MPG data lookup",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c4465643-e0e6-4416-afd4-3befd2d626ed",
+          "name": "Get makes with community MPG data",
+          "request": {
+            "name": "Get makes with community MPG data",
+            "description": {
+              "content": "Returns a list of vehicle makes for which community-contributed real-world MPG data exists. Spans historical makes including discontinued brands. Use the returned make values with the /ympg/shared/menu/model endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ympg",
+                "shared",
+                "menu",
+                "make"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/xml"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "03a56a9e-0be1-413c-87be-c7c53624d33e",
+              "name": "List of makes with shared MPG data",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ympg",
+                    "shared",
+                    "menu",
+                    "make"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/xml"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/xml"
+                }
+              ],
+              "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\n  <menuItem>\n    <text>(string)</text>\n    <value>(string)</value>\n  </menuItem>\n</element>",
+              "cookie": [],
+              "_postman_previewlanguage": "xml"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d25eb13a-2825-4101-857d-605cab2268a4",
+          "name": "Get models with community MPG data for a make",
+          "request": {
+            "name": "Get models with community MPG data for a make",
+            "description": {
+              "content": "Returns a list of vehicle models for the specified make for which community-contributed real-world MPG data exists. Use the returned values with the /ympg/shared/vehicles endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ympg",
+                "shared",
+                "menu",
+                "model"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "make",
+                  "value": "<string>",
+                  "description": "(Required) Vehicle manufacturer name (e.g., Toyota, Ford). Must match a value from the make menu."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/xml"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c24f8135-cfd5-453e-9b52-b100b21cde8d",
+              "name": "List of models with shared MPG data",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ympg",
+                    "shared",
+                    "menu",
+                    "model"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "make",
+                      "value": "Toyota"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/xml"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/xml"
+                }
+              ],
+              "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\n  <menuItem>\n    <text>(string)</text>\n    <value>(string)</value>\n  </menuItem>\n</element>",
+              "cookie": [],
+              "_postman_previewlanguage": "xml"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "279e3250-2646-4bdf-8d83-3c62d5e23109",
+          "name": "Get vehicles with community MPG data for a make and model",
+          "request": {
+            "name": "Get vehicles with community MPG data for a make and model",
+            "description": {
+              "content": "Returns a list of vehicle records for the specified make and model that have community-contributed real-world MPG data. Each record contains full EPA fuel economy specifications and can be used to retrieve user MPG summaries via /ympg/shared/ympgVehicle/{id}.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ympg",
+                "shared",
+                "vehicles"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "make",
+                  "value": "<string>",
+                  "description": "(Required) Vehicle manufacturer name (e.g., Toyota, Ford). Must match a value from the make menu."
+                },
+                {
+                  "disabled": false,
+                  "key": "model",
+                  "value": "<string>",
+                  "description": "(Required) Vehicle model name (e.g., Camry LE/SE). Must match a value from the model menu."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/xml"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "810808d9-bda7-4c98-821e-aacaaa62f093",
+              "name": "List of vehicle records with shared MPG data",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ympg",
+                    "shared",
+                    "vehicles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "make",
+                      "value": "Toyota"
+                    },
+                    {
+                      "key": "model",
+                      "value": "Corolla"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/xml"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/xml"
+                }
+              ],
+              "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<element>\n  <vehicle>\n    <id>(integer)</id>\n    <year>(integer)</year>\n    <make>(string)</make>\n    <model>(string)</model>\n    <baseModel>(string)</baseModel>\n    <atvType>(string)</atvType>\n    <city08>(integer)</city08>\n    <city08U>(number)</city08U>\n    <cityA08>(integer)</cityA08>\n    <cityA08U>(number)</cityA08U>\n    <highway08>(integer)</highway08>\n    <highway08U>(number)</highway08U>\n    <highwayA08>(integer)</highwayA08>\n    <highwayA08U>(number)</highwayA08U>\n    <comb08>(integer)</comb08>\n    <comb08U>(number)</comb08U>\n    <combA08>(integer)</combA08>\n    <combA08U>(number)</combA08U>\n    <fuelType>(string)</fuelType>\n    <fuelType1>(string)</fuelType1>\n    <fuelType2>(string)</fuelType2>\n    <cylinders>(integer)</cylinders>\n    <displ>(number)</displ>\n    <trany>(string)</trany>\n    <drive>(string)</drive>\n    <VClass>(string)</VClass>\n    <co2TailpipeGpm>(number)</co2TailpipeGpm>\n    <co2TailpipeAGpm>(number)</co2TailpipeAGpm>\n    <fuelCost08>(integer)</fuelCost08>\n    <fuelCostA08>(integer)</fuelCostA08>\n    <barrels08>(number)</barrels08>\n    <barrelsA08>(number)</barrelsA08>\n    <ghgScore>(integer)</ghgScore>\n    <ghgScoreA>(integer)</ghgScoreA>\n    <feScore>(integer)</feScore>\n    <co2>(integer)</co2>\n    <co2A>(integer)</co2A>\n    <smartwayScore>(integer)</smartwayScore>\n    <guzzler>(string)</guzzler>\n    <mfrCode>(string)</mfrCode>\n    <engId>(integer)</engId>\n    <eng_dscr>(string)</eng_dscr>\n    <trans_dscr>(string)</trans_dscr>\n    <sCharger>(string)</sCharger>\n    <tCharger>(string)</tCharger>\n    <startStop>(string)</startStop>\n    <cylDeact>(string)</cylDeact>\n    <cylDeactYesNo>(string)</cylDeactYesNo>\n    <mpgData>(string)</mpgData>\n    <mpgRevised>(boolean)</mpgRevised>\n    <phevBlended>(boolean)</phevBlended>\n    <phevCity>(integer)</phevCity>\n    <phevHwy>(integer)</phevHwy>\n    <phevComb>(integer)</phevComb>\n    <range>(integer)</range>\n    <rangeA>(integer)</rangeA>\n    <charge120>(number)</charge120>\n    <charge240>(number)</charge240>\n    <battery>(number)</battery>\n    <evMotor>(string)</evMotor>\n    <combE>(number)</combE>\n    <cityE>(number)</cityE>\n    <highwayE>(number)</highwayE>\n    <youSaveSpend>(integer)</youSaveSpend>\n    <hlv>(integer)</hlv>\n    <hpv>(integer)</hpv>\n    <lv2>(integer)</lv2>\n    <lv4>(integer)</lv4>\n    <pv2>(integer)</pv2>\n    <pv4>(integer)</pv4>\n    <emissionsList>\n      <emissionsInfo>\n        <efid>(string)</efid>\n        <id>(integer)</id>\n        <salesArea>(integer)</salesArea>\n        <score>(number)</score>\n        <scoreAlt>(number)</scoreAlt>\n        <smartwayScore>(integer)</smartwayScore>\n        <standard>(string)</standard>\n        <stdText>(string)</stdText>\n      </emissionsInfo>\n    </emissionsList>\n    <createdOn>(string)</createdOn>\n    <modifiedOn>(string)</modifiedOn>\n  </vehicle>\n</element>",
+              "cookie": [],
+              "_postman_previewlanguage": "xml"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://www.fueleconomy.gov/ws/rest",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "b215d42d-a58a-499a-9324-78adb7b5cf83",
+    "name": "Fuel Economy Web Services Emissions User MPG Menus API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "RESTful web services providing official EPA fuel economy ratings, vehicle specifications, CO2 emissions records, current fuel prices, and community-contributed real-world MPG data for passenger cars and light trucks from 1984 through the current model year. Administered by Oak Ridge National Laboratory for the US Department of Energy and the EPA. All endpoints are free and require no authentication. Responses are returned in XML format.\n\nContact Support:\n Name: FuelEconomy.gov Feedback\n Email: fueleconomy@ornl.gov",
+      "type": "text/plain"
+    }
+  }
+}

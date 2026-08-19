@@ -1,0 +1,56 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fuel Economy Web Services Emissions User MPG API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "User MPG",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get user MPG summary for a vehicle",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.fueleconomy.gov/ws/rest/ympg/shared/ympgVehicle/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique numeric vehicle identifier assigned by the EPA/FuelEconomy.gov. Obtain IDs via the /vehicle/menu/options endpoint."
+              }
+            ]
+          },
+          "docs": "Returns an aggregate summary of community-contributed real-world MPG records for the specified vehicle. Includes average, minimum, and maximum MPG values, the total number of records, and the percentage breakdown between city and highway driving across all submissions."
+        },
+        {
+          "info": {
+            "name": "Get individual user MPG records for a vehicle",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.fueleconomy.gov/ws/rest/ympg/shared/ympgDriverVehicle/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique numeric vehicle identifier assigned by the EPA/FuelEconomy.gov. Obtain IDs via the /vehicle/menu/options endpoint."
+              }
+            ]
+          },
+          "docs": "Returns the list of individual community-contributed real-world MPG records for the specified vehicle. Each record includes the reported MPG, the city/highway driving mix, the US state, and the date of the last update."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

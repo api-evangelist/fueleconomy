@@ -1,0 +1,37 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fuel Economy Web Services Emissions API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Emissions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get vehicle emissions by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.fueleconomy.gov/ws/rest/vehicle/emissions/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique numeric vehicle identifier assigned by the EPA/FuelEconomy.gov. Obtain IDs via the /vehicle/menu/options endpoint."
+              }
+            ]
+          },
+          "docs": "Returns EPA tailpipe emissions certification records for a specific vehicle. Includes emissions family identifier, applicable sales area, emissions standard bin text, and SmartWay and air quality scores. A vehicle may have multiple emissions records for different sales territories."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

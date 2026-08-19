@@ -1,0 +1,102 @@
+{
+  "item": [
+    {
+      "id": "575c49dd-c29e-4156-9216-f39080cc427f",
+      "name": "Fuel Prices",
+      "description": {
+        "content": "Current US fuel prices used by the FuelEconomy.gov platform",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "caf4843d-0269-4de7-a021-b57a215192a7",
+          "name": "Get current fuel prices",
+          "request": {
+            "name": "Get current fuel prices",
+            "description": {
+              "content": "Returns the current US average fuel prices (in dollars per gallon or per kWh for electricity) used by the FuelEconomy.gov cost calculator. Includes regular, midgrade, and premium gasoline; diesel; E85 ethanol blend; compressed natural gas (CNG); liquefied petroleum gas (LPG); and electricity.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "fuelprices"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/xml"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6ce464b5-8e92-4b61-b3b3-bf782e0c4285",
+              "name": "Current fuel prices",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fuelprices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/xml"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/xml"
+                }
+              ],
+              "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n",
+              "cookie": [],
+              "_postman_previewlanguage": "xml"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://www.fueleconomy.gov/ws/rest",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "32100024-b952-4f85-a2fb-c9971c1887b0",
+    "name": "Fuel Economy Web Services Emissions Fuel Prices API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "RESTful web services providing official EPA fuel economy ratings, vehicle specifications, CO2 emissions records, current fuel prices, and community-contributed real-world MPG data for passenger cars and light trucks from 1984 through the current model year. Administered by Oak Ridge National Laboratory for the US Department of Energy and the EPA. All endpoints are free and require no authentication. Responses are returned in XML format.\n\nContact Support:\n Name: FuelEconomy.gov Feedback\n Email: fueleconomy@ornl.gov",
+      "type": "text/plain"
+    }
+  }
+}

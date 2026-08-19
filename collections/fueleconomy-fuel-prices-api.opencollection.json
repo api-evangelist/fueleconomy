@@ -1,0 +1,29 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fuel Economy Web Services Emissions Fuel Prices API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Fuel Prices",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get current fuel prices",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.fueleconomy.gov/ws/rest/fuelprices"
+          },
+          "docs": "Returns the current US average fuel prices (in dollars per gallon or per kWh for electricity) used by the FuelEconomy.gov cost calculator. Includes regular, midgrade, and premium gasoline; diesel; E85 ethanol blend; compressed natural gas (CNG); liquefied petroleum gas (LPG); and electricity."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

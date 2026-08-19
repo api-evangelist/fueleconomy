@@ -1,0 +1,73 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fuel Economy Web Services Emissions User MPG Menus API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "User MPG Menus",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get makes with community MPG data",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.fueleconomy.gov/ws/rest/ympg/shared/menu/make"
+          },
+          "docs": "Returns a list of vehicle makes for which community-contributed real-world MPG data exists. Spans historical makes including discontinued brands. Use the returned make values with the /ympg/shared/menu/model endpoint."
+        },
+        {
+          "info": {
+            "name": "Get models with community MPG data for a make",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.fueleconomy.gov/ws/rest/ympg/shared/menu/model",
+            "params": [
+              {
+                "name": "make",
+                "value": "",
+                "type": "query",
+                "description": "Vehicle manufacturer name (e.g., Toyota, Ford). Must match a value from the make menu."
+              }
+            ]
+          },
+          "docs": "Returns a list of vehicle models for the specified make for which community-contributed real-world MPG data exists. Use the returned values with the /ympg/shared/vehicles endpoint."
+        },
+        {
+          "info": {
+            "name": "Get vehicles with community MPG data for a make and model",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.fueleconomy.gov/ws/rest/ympg/shared/vehicles",
+            "params": [
+              {
+                "name": "make",
+                "value": "",
+                "type": "query",
+                "description": "Vehicle manufacturer name (e.g., Toyota, Ford). Must match a value from the make menu."
+              },
+              {
+                "name": "model",
+                "value": "",
+                "type": "query",
+                "description": "Vehicle model name (e.g., Camry LE/SE). Must match a value from the model menu."
+              }
+            ]
+          },
+          "docs": "Returns a list of vehicle records for the specified make and model that have community-contributed real-world MPG data. Each record contains full EPA fuel economy specifications and can be used to retrieve user MPG summaries via /ympg/shared/ympgVehicle/{id}."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

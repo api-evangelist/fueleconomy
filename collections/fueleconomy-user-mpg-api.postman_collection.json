@@ -1,0 +1,216 @@
+{
+  "item": [
+    {
+      "id": "38a06c61-2d13-47a3-a9a1-727257fdbfc2",
+      "name": "User MPG",
+      "description": {
+        "content": "Community-contributed real-world MPG data",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ff3daa6e-7891-4c7c-921a-8401ca0db4de",
+          "name": "Get user MPG summary for a vehicle",
+          "request": {
+            "name": "Get user MPG summary for a vehicle",
+            "description": {
+              "content": "Returns an aggregate summary of community-contributed real-world MPG records for the specified vehicle. Includes average, minimum, and maximum MPG values, the total number of records, and the percentage breakdown between city and highway driving across all submissions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ympg",
+                "shared",
+                "ympgVehicle",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) Unique numeric vehicle identifier assigned by the EPA/FuelEconomy.gov. Obtain IDs via the /vehicle/menu/options endpoint."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/xml"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a943d154-5ca7-4b80-83aa-0f51574662a3",
+              "name": "Aggregated user MPG summary for vehicle",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ympg",
+                    "shared",
+                    "ympgVehicle",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique numeric vehicle identifier assigned by the EPA/FuelEconomy.gov. Obtain IDs via the /vehicle/menu/options endpoint."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/xml"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/xml"
+                }
+              ],
+              "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n",
+              "cookie": [],
+              "_postman_previewlanguage": "xml"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ee8ba682-3388-4d8e-bef1-d87f408b5a9b",
+          "name": "Get individual user MPG records for a vehicle",
+          "request": {
+            "name": "Get individual user MPG records for a vehicle",
+            "description": {
+              "content": "Returns the list of individual community-contributed real-world MPG records for the specified vehicle. Each record includes the reported MPG, the city/highway driving mix, the US state, and the date of the last update.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ympg",
+                "shared",
+                "ympgDriverVehicle",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) Unique numeric vehicle identifier assigned by the EPA/FuelEconomy.gov. Obtain IDs via the /vehicle/menu/options endpoint."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/xml"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "88cd525c-2585-4386-aad3-9cb4814b5f2b",
+              "name": "List of individual user MPG records",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ympg",
+                    "shared",
+                    "ympgDriverVehicle",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique numeric vehicle identifier assigned by the EPA/FuelEconomy.gov. Obtain IDs via the /vehicle/menu/options endpoint."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/xml"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/xml"
+                }
+              ],
+              "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n",
+              "cookie": [],
+              "_postman_previewlanguage": "xml"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://www.fueleconomy.gov/ws/rest",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "ef00115c-b88c-462c-90f1-07dff640d9dc",
+    "name": "Fuel Economy Web Services Emissions User MPG API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "RESTful web services providing official EPA fuel economy ratings, vehicle specifications, CO2 emissions records, current fuel prices, and community-contributed real-world MPG data for passenger cars and light trucks from 1984 through the current model year. Administered by Oak Ridge National Laboratory for the US Department of Energy and the EPA. All endpoints are free and require no authentication. Responses are returned in XML format.\n\nContact Support:\n Name: FuelEconomy.gov Feedback\n Email: fueleconomy@ornl.gov",
+      "type": "text/plain"
+    }
+  }
+}
