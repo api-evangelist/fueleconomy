@@ -123,6 +123,9 @@ apis:
   - type: Documentation
     url: https://www.fueleconomy.gov/feg/ws/index.shtml
 common:
+  - type: CapabilityMap
+    url: capabilities/fueleconomy-capability-edges.yml
+    name: FuelEconomy.gov Business Capability Map
   - type: AgenticAccess
     url: agentic-access/fueleconomy-agentic-access.yml
   - type: DomainSecurity

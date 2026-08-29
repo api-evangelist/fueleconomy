@@ -1,0 +1,26 @@
+slug: fueleconomy
+provider: FuelEconomy.gov
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Automotive & Mobility
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 1
+edges:
+- tag: Emissions
+  spec_file: fueleconomy-emissions-api-openapi.yml
+  capability_id: BC-3420.30
+  capability_id_l1: BC-3420
+  capability_name: Emissions and Energy Homologation
+  confidence: 0.7
+  evidence: '"Get vehicle emissions by ID", schemas EmissionsResponse, EmissionsInfo; "official EPA fuel
+    economy ratings ... CO2 emissions records"'
+  reason: Serves official EPA-certified per-vehicle emissions and CO2 records, the published output of
+    emissions/energy homologation. Moderate confidence since this is a government data-publication API
+    rather than an OEM homologation workflow tool.
