@@ -8,6 +8,18 @@ description: >-
   to vehicle lookup menus, per-vehicle MPG records, emissions data, current fuel
   prices, and community-contributed real-world fuel economy data.
 type: Index
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: free
   onboarding: open
