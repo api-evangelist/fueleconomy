@@ -1,12 +1,7 @@
 {
   "provider": "fueleconomy",
   "sources": [
-    "fueleconomy-emissions-api-openapi.yml",
-    "fueleconomy-fuel-prices-api-openapi.yml",
-    "fueleconomy-menus-api-openapi.yml",
-    "fueleconomy-user-mpg-api-openapi.yml",
-    "fueleconomy-user-mpg-menus-api-openapi.yml",
-    "fueleconomy-vehicles-api-openapi.yml"
+    "_original/fueleconomy-fuel-economy-web-services-openapi.yml"
   ],
   "outputs": [
     "fueleconomy-emissions-api-openapi.yml",
@@ -19,6 +14,17 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "fueleconomy-fuel-economy-web-services-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "fueleconomy-emissions-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "fueleconomy-fuel-prices-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "fueleconomy-menus-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "fueleconomy-user-mpg-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "fueleconomy-user-mpg-menus-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "fueleconomy-vehicles-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

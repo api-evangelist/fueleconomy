@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Fuel Economy Web Services Emissions Vehicles API
+  title: Fuel Economy Web Services Vehicles API
   description: RESTful web services providing official EPA fuel economy ratings, vehicle specifications, CO2 emissions records, current fuel prices, and community-contributed real-world MPG data for passenger cars and light trucks from 1984 through the current model year. Administered by Oak Ridge National Laboratory for the US Department of Energy and the EPA. All endpoints are free and require no authentication. Responses are returned in XML format.
   version: '1.0'
   contact:
@@ -38,36 +38,6 @@ paths:
           description: Vehicle not found
 components:
   schemas:
-    EmissionsInfo:
-      type: object
-      description: EPA tailpipe emissions certification record for a specific sales territory
-      properties:
-        efid:
-          type: string
-          description: Emissions family identifier (EPA certification code)
-        id:
-          type: integer
-          description: Vehicle ID
-        salesArea:
-          type: integer
-          description: Sales territory code (e.g., 3 = 49-state, 7 = California)
-        score:
-          type: number
-          format: double
-          description: Air pollution score (1-10 scale; -1 if not rated)
-        scoreAlt:
-          type: number
-          format: double
-          description: Air pollution score for alternative fuel; -1 if not rated
-        smartwayScore:
-          type: integer
-          description: SmartWay score (-1 if not rated)
-        standard:
-          type: string
-          description: Emissions standard code (e.g., B5, B8, LEV2-ULEV)
-        stdText:
-          type: string
-          description: Human-readable emissions standard (e.g., "Bin 5", "LEV2-ULEV")
     Vehicle:
       type: object
       description: Full EPA fuel economy and specification record for a single vehicle configuration (year/make/model/trim/option).
@@ -319,6 +289,36 @@ components:
           - type: array
             items:
               $ref: '#/components/schemas/EmissionsInfo'
+    EmissionsInfo:
+      type: object
+      description: EPA tailpipe emissions certification record for a specific sales territory
+      properties:
+        efid:
+          type: string
+          description: Emissions family identifier (EPA certification code)
+        id:
+          type: integer
+          description: Vehicle ID
+        salesArea:
+          type: integer
+          description: Sales territory code (e.g., 3 = 49-state, 7 = California)
+        score:
+          type: number
+          format: double
+          description: Air pollution score (1-10 scale; -1 if not rated)
+        scoreAlt:
+          type: number
+          format: double
+          description: Air pollution score for alternative fuel; -1 if not rated
+        smartwayScore:
+          type: integer
+          description: SmartWay score (-1 if not rated)
+        standard:
+          type: string
+          description: Emissions standard code (e.g., B5, B8, LEV2-ULEV)
+        stdText:
+          type: string
+          description: Human-readable emissions standard (e.g., "Bin 5", "LEV2-ULEV")
   parameters:
     vehicleId:
       name: id
