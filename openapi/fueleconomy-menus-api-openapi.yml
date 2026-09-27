@@ -88,14 +88,6 @@ paths:
               example: "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n<menuItems>\n  <menuItem>\n    <text>2.5L 4cyl CVT (FWD)</text>\n    <value>48891</value>\n  </menuItem>\n</menuItems>\n"
 components:
   parameters:
-    makeQuery:
-      name: make
-      in: query
-      required: true
-      description: Vehicle manufacturer name (e.g., Toyota, Ford). Must match a value from the make menu.
-      schema:
-        type: string
-        example: Toyota
     modelQuery:
       name: model
       in: query
@@ -113,6 +105,14 @@ components:
         type: integer
         minimum: 1984
         example: 2024
+    makeQuery:
+      name: make
+      in: query
+      required: true
+      description: Vehicle manufacturer name (e.g., Toyota, Ford). Must match a value from the make menu.
+      schema:
+        type: string
+        example: Toyota
   schemas:
     MenuItems:
       type: object
