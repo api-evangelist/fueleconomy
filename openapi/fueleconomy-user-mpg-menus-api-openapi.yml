@@ -66,14 +66,6 @@ paths:
                 $ref: '#/components/schemas/VehicleList'
 components:
   parameters:
-    modelQuery:
-      name: model
-      in: query
-      required: true
-      description: Vehicle model name (e.g., Camry LE/SE). Must match a value from the model menu.
-      schema:
-        type: string
-        example: Corolla
     makeQuery:
       name: make
       in: query
@@ -82,57 +74,35 @@ components:
       schema:
         type: string
         example: Toyota
+    modelQuery:
+      name: model
+      in: query
+      required: true
+      description: Vehicle model name (e.g., Camry LE/SE). Must match a value from the model menu.
+      schema:
+        type: string
+        example: Corolla
   schemas:
-    MenuItems:
+    VehicleList:
       type: object
-      description: Collection of navigation menu items for vehicle lookup
+      description: List of vehicle records
       properties:
-        menuItem:
+        vehicle:
           oneOf:
-          - $ref: '#/components/schemas/MenuItem'
+          - $ref: '#/components/schemas/Vehicle'
           - type: array
             items:
-              $ref: '#/components/schemas/MenuItem'
-    EmissionsInfo:
+              $ref: '#/components/schemas/Vehicle'
+    EmissionsResponse:
       type: object
-      description: EPA tailpipe emissions certification record for a specific sales territory
+      description: Container for one or more emissions certification records
       properties:
-        efid:
-          type: string
-          description: Emissions family identifier (EPA certification code)
-        id:
-          type: integer
-          description: Vehicle ID
-        salesArea:
-          type: integer
-          description: Sales territory code (e.g., 3 = 49-state, 7 = California)
-        score:
-          type: number
-          format: double
-          description: Air pollution score (1-10 scale; -1 if not rated)
-        scoreAlt:
-          type: number
-          format: double
-          description: Air pollution score for alternative fuel; -1 if not rated
-        smartwayScore:
-          type: integer
-          description: SmartWay score (-1 if not rated)
-        standard:
-          type: string
-          description: Emissions standard code (e.g., B5, B8, LEV2-ULEV)
-        stdText:
-          type: string
-          description: Human-readable emissions standard (e.g., "Bin 5", "LEV2-ULEV")
-    MenuItem:
-      type: object
-      description: A single selectable option in a navigation menu
-      properties:
-        text:
-          type: string
-          description: Human-readable display label
-        value:
-          type: string
-          description: Machine-readable value to pass as query parameter or path segment. For the /vehicle/menu/options endpoint, this is the numeric vehicle ID.
+        emissionsInfo:
+          oneOf:
+          - $ref: '#/components/schemas/EmissionsInfo'
+          - type: array
+            items:
+              $ref: '#/components/schemas/EmissionsInfo'
     Vehicle:
       type: object
       description: Full EPA fuel economy and specification record for a single vehicle configuration (year/make/model/trim/option).
@@ -374,26 +344,56 @@ components:
           type: string
           format: date-time
           description: Date/time the record was last modified
-    VehicleList:
+    MenuItem:
       type: object
-      description: List of vehicle records
+      description: A single selectable option in a navigation menu
       properties:
-        vehicle:
+        text:
+          type: string
+          description: Human-readable display label
+        value:
+          type: string
+          description: Machine-readable value to pass as query parameter or path segment. For the /vehicle/menu/options endpoint, this is the numeric vehicle ID.
+    MenuItems:
+      type: object
+      description: Collection of navigation menu items for vehicle lookup
+      properties:
+        menuItem:
           oneOf:
-          - $ref: '#/components/schemas/Vehicle'
+          - $ref: '#/components/schemas/MenuItem'
           - type: array
             items:
-              $ref: '#/components/schemas/Vehicle'
-    EmissionsResponse:
+              $ref: '#/components/schemas/MenuItem'
+    EmissionsInfo:
       type: object
-      description: Container for one or more emissions certification records
+      description: EPA tailpipe emissions certification record for a specific sales territory
       properties:
-        emissionsInfo:
-          oneOf:
-          - $ref: '#/components/schemas/EmissionsInfo'
-          - type: array
-            items:
-              $ref: '#/components/schemas/EmissionsInfo'
+        efid:
+          type: string
+          description: Emissions family identifier (EPA certification code)
+        id:
+          type: integer
+          description: Vehicle ID
+        salesArea:
+          type: integer
+          description: Sales territory code (e.g., 3 = 49-state, 7 = California)
+        score:
+          type: number
+          format: double
+          description: Air pollution score (1-10 scale; -1 if not rated)
+        scoreAlt:
+          type: number
+          format: double
+          description: Air pollution score for alternative fuel; -1 if not rated
+        smartwayScore:
+          type: integer
+          description: SmartWay score (-1 if not rated)
+        standard:
+          type: string
+          description: Emissions standard code (e.g., B5, B8, LEV2-ULEV)
+        stdText:
+          type: string
+          description: Human-readable emissions standard (e.g., "Bin 5", "LEV2-ULEV")
 externalDocs:
   description: Official API Documentation
   url: https://www.fueleconomy.gov/feg/ws/index.shtml

@@ -38,6 +38,16 @@ paths:
           description: Vehicle not found
 components:
   schemas:
+    EmissionsResponse:
+      type: object
+      description: Container for one or more emissions certification records
+      properties:
+        emissionsInfo:
+          oneOf:
+          - $ref: '#/components/schemas/EmissionsInfo'
+          - type: array
+            items:
+              $ref: '#/components/schemas/EmissionsInfo'
     EmissionsInfo:
       type: object
       description: EPA tailpipe emissions certification record for a specific sales territory
@@ -68,16 +78,6 @@ components:
         stdText:
           type: string
           description: Human-readable emissions standard (e.g., "Bin 5", "LEV2-ULEV")
-    EmissionsResponse:
-      type: object
-      description: Container for one or more emissions certification records
-      properties:
-        emissionsInfo:
-          oneOf:
-          - $ref: '#/components/schemas/EmissionsInfo'
-          - type: array
-            items:
-              $ref: '#/components/schemas/EmissionsInfo'
   parameters:
     vehicleId:
       name: id

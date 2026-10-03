@@ -88,6 +88,14 @@ paths:
               example: "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n<menuItems>\n  <menuItem>\n    <text>2.5L 4cyl CVT (FWD)</text>\n    <value>48891</value>\n  </menuItem>\n</menuItems>\n"
 components:
   parameters:
+    makeQuery:
+      name: make
+      in: query
+      required: true
+      description: Vehicle manufacturer name (e.g., Toyota, Ford). Must match a value from the make menu.
+      schema:
+        type: string
+        example: Toyota
     modelQuery:
       name: model
       in: query
@@ -105,25 +113,7 @@ components:
         type: integer
         minimum: 1984
         example: 2024
-    makeQuery:
-      name: make
-      in: query
-      required: true
-      description: Vehicle manufacturer name (e.g., Toyota, Ford). Must match a value from the make menu.
-      schema:
-        type: string
-        example: Toyota
   schemas:
-    MenuItems:
-      type: object
-      description: Collection of navigation menu items for vehicle lookup
-      properties:
-        menuItem:
-          oneOf:
-          - $ref: '#/components/schemas/MenuItem'
-          - type: array
-            items:
-              $ref: '#/components/schemas/MenuItem'
     MenuItem:
       type: object
       description: A single selectable option in a navigation menu
@@ -134,6 +124,16 @@ components:
         value:
           type: string
           description: Machine-readable value to pass as query parameter or path segment. For the /vehicle/menu/options endpoint, this is the numeric vehicle ID.
+    MenuItems:
+      type: object
+      description: Collection of navigation menu items for vehicle lookup
+      properties:
+        menuItem:
+          oneOf:
+          - $ref: '#/components/schemas/MenuItem'
+          - type: array
+            items:
+              $ref: '#/components/schemas/MenuItem'
 externalDocs:
   description: Official API Documentation
   url: https://www.fueleconomy.gov/feg/ws/index.shtml
