@@ -52,7 +52,52 @@ paths:
                 $ref: '#/components/schemas/YmpgDriverVehicleList'
               example: "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n<ympgDriverVehicleList>\n  <ympgDriverVehicle>\n    <vehicleId>26425</vehicleId>\n    <mpg>48.6</mpg>\n    <cityPercent>45</cityPercent>\n    <highwayPercent>55</highwayPercent>\n    <state>CA</state>\n    <lastDate>2024-03-15T00:00:00-04:00</lastDate>\n  </ympgDriverVehicle>\n</ympgDriverVehicleList>\n"
 components:
+  parameters:
+    vehicleId:
+      name: id
+      in: path
+      required: true
+      description: Unique numeric vehicle identifier assigned by the EPA/FuelEconomy.gov. Obtain IDs via the /vehicle/menu/options endpoint.
+      schema:
+        type: integer
+        example: 31873
   schemas:
+    YmpgDriverVehicle:
+      type: object
+      description: Individual community-contributed real-world MPG record
+      properties:
+        vehicleId:
+          type: integer
+          description: Vehicle identifier
+        mpg:
+          type: number
+          format: double
+          description: Reported real-world MPG for this record
+        cityPercent:
+          type: number
+          format: double
+          description: Percentage of city driving for this record
+        highwayPercent:
+          type: number
+          format: double
+          description: Percentage of highway driving for this record
+        state:
+          type: string
+          description: Two-letter US state abbreviation where driving occurred
+        lastDate:
+          type: string
+          format: date-time
+          description: Timestamp of the last update to this record
+    YmpgDriverVehicleList:
+      type: object
+      description: List of individual community MPG records for a vehicle
+      properties:
+        ympgDriverVehicle:
+          oneOf:
+          - $ref: '#/components/schemas/YmpgDriverVehicle'
+          - type: array
+            items:
+              $ref: '#/components/schemas/YmpgDriverVehicle'
     YmpgVehicleSummary:
       type: object
       description: Aggregated summary of community-contributed real-world MPG data for a vehicle
@@ -83,51 +128,6 @@ components:
           type: number
           format: double
           description: Aggregate percentage of highway driving across submissions
-    YmpgDriverVehicleList:
-      type: object
-      description: List of individual community MPG records for a vehicle
-      properties:
-        ympgDriverVehicle:
-          oneOf:
-          - $ref: '#/components/schemas/YmpgDriverVehicle'
-          - type: array
-            items:
-              $ref: '#/components/schemas/YmpgDriverVehicle'
-    YmpgDriverVehicle:
-      type: object
-      description: Individual community-contributed real-world MPG record
-      properties:
-        vehicleId:
-          type: integer
-          description: Vehicle identifier
-        mpg:
-          type: number
-          format: double
-          description: Reported real-world MPG for this record
-        cityPercent:
-          type: number
-          format: double
-          description: Percentage of city driving for this record
-        highwayPercent:
-          type: number
-          format: double
-          description: Percentage of highway driving for this record
-        state:
-          type: string
-          description: Two-letter US state abbreviation where driving occurred
-        lastDate:
-          type: string
-          format: date-time
-          description: Timestamp of the last update to this record
-  parameters:
-    vehicleId:
-      name: id
-      in: path
-      required: true
-      description: Unique numeric vehicle identifier assigned by the EPA/FuelEconomy.gov. Obtain IDs via the /vehicle/menu/options endpoint.
-      schema:
-        type: integer
-        example: 31873
 externalDocs:
   description: Official API Documentation
   url: https://www.fueleconomy.gov/feg/ws/index.shtml

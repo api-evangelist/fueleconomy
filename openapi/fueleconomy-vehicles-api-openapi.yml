@@ -48,6 +48,36 @@ components:
           - type: array
             items:
               $ref: '#/components/schemas/EmissionsInfo'
+    EmissionsInfo:
+      type: object
+      description: EPA tailpipe emissions certification record for a specific sales territory
+      properties:
+        efid:
+          type: string
+          description: Emissions family identifier (EPA certification code)
+        id:
+          type: integer
+          description: Vehicle ID
+        salesArea:
+          type: integer
+          description: Sales territory code (e.g., 3 = 49-state, 7 = California)
+        score:
+          type: number
+          format: double
+          description: Air pollution score (1-10 scale; -1 if not rated)
+        scoreAlt:
+          type: number
+          format: double
+          description: Air pollution score for alternative fuel; -1 if not rated
+        smartwayScore:
+          type: integer
+          description: SmartWay score (-1 if not rated)
+        standard:
+          type: string
+          description: Emissions standard code (e.g., B5, B8, LEV2-ULEV)
+        stdText:
+          type: string
+          description: Human-readable emissions standard (e.g., "Bin 5", "LEV2-ULEV")
     Vehicle:
       type: object
       description: Full EPA fuel economy and specification record for a single vehicle configuration (year/make/model/trim/option).
@@ -289,36 +319,6 @@ components:
           type: string
           format: date-time
           description: Date/time the record was last modified
-    EmissionsInfo:
-      type: object
-      description: EPA tailpipe emissions certification record for a specific sales territory
-      properties:
-        efid:
-          type: string
-          description: Emissions family identifier (EPA certification code)
-        id:
-          type: integer
-          description: Vehicle ID
-        salesArea:
-          type: integer
-          description: Sales territory code (e.g., 3 = 49-state, 7 = California)
-        score:
-          type: number
-          format: double
-          description: Air pollution score (1-10 scale; -1 if not rated)
-        scoreAlt:
-          type: number
-          format: double
-          description: Air pollution score for alternative fuel; -1 if not rated
-        smartwayScore:
-          type: integer
-          description: SmartWay score (-1 if not rated)
-        standard:
-          type: string
-          description: Emissions standard code (e.g., B5, B8, LEV2-ULEV)
-        stdText:
-          type: string
-          description: Human-readable emissions standard (e.g., "Bin 5", "LEV2-ULEV")
   parameters:
     vehicleId:
       name: id
