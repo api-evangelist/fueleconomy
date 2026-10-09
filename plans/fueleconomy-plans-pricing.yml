@@ -1,3 +1,7 @@
+# Provenance stamped 2026-10-07 (roadmap#943): written by an API Evangelist sweep (undated — the file carries no date and git cannot supply one), not
+# harvested from the provider. `method: generated` so the economics campaign may replace it with a
+# dated, verbatim transcription; every figure below is unverified until it does.
+method: generated
 name: FuelEconomy.gov API Plans and Pricing
 description: >-
   FuelEconomy.gov web services are provided free of charge by the U.S.
@@ -27,3 +31,16 @@ plans:
       - Bulk data downloads in CSV, XML, and Excel formats
       - Data coverage from 1984 through current model year
       - Alternative fuel vehicle data (EV, hybrid, CNG, etc.)
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - free
+  units: []
+  plans:
+  - name: Free Public Access
+    access: other
+    model: free
+    model_how: derived
+    units: []
+    periods: []
