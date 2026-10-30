@@ -64,53 +64,151 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-FuelEconomy.gov is the official U.S. government source for fuel economy information, providing free REST web services exposing EPA fuel economy ratings, vehicle specifications, CO2 emissions data, current fuel prices, and community-contributed real-world MPG data. The API covers passenger cars and light trucks from 1984 through the current model year and is administered by Oak Ridge National Laboratory for the U.S. Department of Energy and the U.S. Environmental Protection Agency.
+US Department of Energy REST API providing official EPA fuel economy ratings, vehicle specifications, CO2 emissions data, and energy cost comparisons for all model years from 1984 to present. Administered by Oak Ridge National Laboratory for the DOE and EPA, the API offers free, unauthenticated access to vehicle lookup menus, per-vehicle MPG records, emissions data, current fuel prices, and community-contributed real-world fuel economy data.
 
-## API
+**Areas:** Fuel Economy · EPA · DOE · Energy · Vehicles · Emissions · CO2 · MPG · Automotive · Government · Open Data
 
-- **Base URL**: `https://www.fueleconomy.gov/ws/rest`
-- **Authentication**: None required
-- **Formats**: JSON and XML
-- **Cost**: Free
+## FuelEconomy.gov on APIs.io
 
-### Key Endpoints
+Everything profiled for FuelEconomy.gov is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/fueleconomy/](https://apis.io/providers/fueleconomy/)** — or go straight to one of the APIs or properties below.
 
-| Endpoint | Description |
+### APIs (6)
+
+- [FuelEconomy.gov Emissions API](https://apis.io/apis/fueleconomy/fueleconomy-emissions-api/) — EPA tailpipe emissions data per vehicle
+- [FuelEconomy.gov Fuel Prices API](https://apis.io/apis/fueleconomy/fueleconomy-fuel-prices-api/) — Current US fuel prices used by the FuelEconomy.gov platform
+- [FuelEconomy.gov Menus API](https://apis.io/apis/fueleconomy/fueleconomy-menus-api/) — Navigation menus for year/make/model vehicle lookup
+- [FuelEconomy.gov User MPG API](https://apis.io/apis/fueleconomy/fueleconomy-user-mpg-api/) — Community-contributed real-world MPG data
+- [FuelEconomy.gov User MPG Menus API](https://apis.io/apis/fueleconomy/fueleconomy-user-mpg-menus-api/) — Navigation menus for community MPG data lookup
+- [FuelEconomy.gov Vehicles API](https://apis.io/apis/fueleconomy/fueleconomy-vehicles-api/) — Retrieve EPA fuel economy and specifications for specific vehicles
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### Agentic access (1)
+
+Which operations an agent can call, which act, and which need a human in the loop.
+
+- [Fueleconomy Agentic Access](https://apis.io/agentic-access/fueleconomy/fueleconomy-agentic-access/)
+
+#### JSON Schema (4)
+
+The data models the API reads and writes.
+
+- [FuelPrices](https://apis.io/schemas/fueleconomy/fuel-prices/)
+- [MenuItems](https://apis.io/schemas/fueleconomy/menu-items/)
+- [Vehicle](https://apis.io/schemas/fueleconomy/vehicle/)
+- [YmpgVehicle](https://apis.io/schemas/fueleconomy/ympg-vehicle/)
+
+#### JSON-LD (1)
+
+Linked-data contexts for the provider's vocabulary.
+
+- [Fueleconomy Context](https://apis.io/jsonld/fueleconomy/fueleconomy-context/)
+
+#### Vocabulary (1)
+
+The provider's domain terms, defined.
+
+- [FuelEconomy.gov API Vocabulary](https://apis.io/vocabularies/fueleconomy/fueleconomy-vocabulary/)
+
+#### Collections (6)
+
+Postman and Open Collection request collections.
+
+- [Fuel Economy Web Services Emissions API](https://apis.io/collections/fueleconomy/open-fueleconomy-emissions-api/)
+- [Fuel Economy Web Services Emissions Fuel Prices API](https://apis.io/collections/fueleconomy/open-fueleconomy-fuel-prices-api/)
+- [Fuel Economy Web Services Emissions Menus API](https://apis.io/collections/fueleconomy/open-fueleconomy-menus-api/)
+- [Fuel Economy Web Services Emissions User MPG API](https://apis.io/collections/fueleconomy/open-fueleconomy-user-mpg-api/)
+- [Fuel Economy Web Services Emissions User MPG Menus API](https://apis.io/collections/fueleconomy/open-fueleconomy-user-mpg-menus-api/)
+- [Fuel Economy Web Services Emissions Vehicles API](https://apis.io/collections/fueleconomy/open-fueleconomy-vehicles-api/)
+
+#### Governance rules (1)
+
+Spectral rulesets for the provider's contracts.
+
+- [FuelEconomy.gov — jsonschema rules](https://apis.io/rules/fueleconomy/fueleconomy-jsonschema-spectral-rules/)
+
+#### Security (1)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Fueleconomy Domain Security](https://apis.io/security/fueleconomy/fueleconomy-domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Fueleconomy Plans Pricing](https://apis.io/plans/fueleconomy/fueleconomy-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Fueleconomy Rate Limits](https://apis.io/rate-limits/fueleconomy/fueleconomy-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Fueleconomy Finops](https://apis.io/finops/fueleconomy/fueleconomy-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.fueleconomy.gov/)
+- [Documentation](https://www.fueleconomy.gov/feg/ws/index.shtml)
+
+## API Evangelist rating
+
+**Kin Score 23.9** — emerging · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
 |---|---|
-| `/vehicle/menu/year` | Available model years |
-| `/vehicle/menu/make?year=YYYY` | Manufacturers for a given year |
-| `/vehicle/menu/model?year=YYYY&make=NAME` | Models for a year and make |
-| `/vehicle/menu/options?year=YYYY&make=NAME&model=NAME` | Trim levels with vehicle IDs |
-| `/vehicle/{id}` | Full vehicle record (MPG, specs, energy cost) |
-| `/vehicle/emissions/{id}` | CO2 and emissions records for a vehicle |
-| `/fuelprices` | Current fuel prices used by the service |
-| `/ympg/shared/ympgVehicle/{id}` | Community MPG summary for a vehicle |
-| `/ympg/shared/ympgDriverVehicle/{id}` | Individual user MPG submissions |
+| Discoverability | 66.1 |
+| Contract quality | 54.1 |
+| Contract governance | 9.8 |
+| Operational transparency | 0.0 |
+| Developer ergonomics | 9.5 |
+| Access clarity | 5.3 |
 
-### Bulk Data Downloads
+**Agent readiness 23.6** — agent-aware
 
-CSV, XML, and Excel files for all model years (1974-present) are available at:
-`https://www.fueleconomy.gov/feg/download.shtml`
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | na |
+| MCP Server | — |
+| Auth Clarity | — |
+| Idempotency | na |
+| Error Semantics | — |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | na |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
 
-Data is updated weekly.
+**Regulatory alignment 10.8** — Government & Public Sector
 
-## Resources
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/fueleconomy/](https://apis.io/providers/fueleconomy/).
 
-- **Website**: https://www.fueleconomy.gov/
-- **API Documentation**: https://www.fueleconomy.gov/feg/ws/index.shtml
-- **Data Downloads**: https://www.fueleconomy.gov/feg/download.shtml
-- **Widgets**: https://www.fueleconomy.gov/widgets/
-- **Contact**: fueleconomy@ornl.gov
-- **Mailing List**: FuelEconomyNews-join@elist.ornl.gov
+## How this profile is made
 
-## APIs.json
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
 
-This repository contains an [APIs.json](apis.yml) index conforming to the APIs.json 0.19 specification, along with supporting profiles:
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for FuelEconomy.gov: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
 
-- [`plans/fueleconomy-plans-pricing.yml`](plans/fueleconomy-plans-pricing.yml) — API Commons Plans 0.1
-- [`rate-limits/fueleconomy-rate-limits.yml`](rate-limits/fueleconomy-rate-limits.yml) — API Commons Rate Limits 0.1
-- [`finops/fueleconomy-finops.yml`](finops/fueleconomy-finops.yml) — FinOps Framework 1.0 FOCUS-aligned
+## Open an issue
 
-## Maintainer
-
-Kin Lane — kin@apievangelist.com
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/fueleconomy/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
